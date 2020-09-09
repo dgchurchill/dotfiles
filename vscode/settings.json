@@ -1,0 +1,14 @@
+{
+    "workbench.colorTheme": "Gruvbox Dark (Medium Contrast)",
+    "files.autoSave": "off",
+    "workbench.editor.enablePreview": false,
+    "workbench.welcome.enabled": false,
+    "vim.handleKeys": {
+        "<C-b>": false,
+        "<C-n>": false,
+        "<C-k>": false
+    },
+    "window.zoomLevel": 0,
+    "vim.disableAnnoyingNeovimMessage": true,
+    "workbench.activityBar.visible": false
+}
