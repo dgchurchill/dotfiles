@@ -89,13 +89,13 @@
   (minions-mode 1)
 )
 
-(use-package doom-themes
-  :config
-  (load-theme 'doom-gruvbox)
-  (doom-themes-visual-bell-config)
-  (doom-themes-neotree-config)
-  (doom-themes-org-config)
-)
+;; (use-package doom-themes
+;;   :config
+;;   (load-theme 'doom-gruvbox)
+;;   (doom-themes-visual-bell-config)
+;;   (doom-themes-neotree-config)
+;;   (doom-themes-org-config)
+;; )
 
 (use-package doom-modeline
   :hook
@@ -132,17 +132,18 @@
     '(objed-state misc-info persp-name irc mu4e github debug lsp minor-modes input-method indent-info buffer-encoding process vcs checker))
 )
 
-;; (use-package gruvbox-theme
-;;   :config
-;;   (load-theme 'gruvbox-dark-soft)
-;; )
+(use-package leuven-theme
+  :hook
+  (doom-modeline-mode . (lambda ()
+    (set-face-foreground 'doom-modeline-info (face-foreground 'mode-line-emphasis))
+    (set-face-foreground 'doom-modeline-buffer-minor-mode (face-foreground 'mode-line-emphasis))))
 
-;; (use-package powerline
-;;   :config
-;;   (powerline-center-evil-theme)
-;;   (when (eq system-type 'darwin)
-;;     (setq powerline-default-separator (quote utf-8)))
-;; )
+  :config
+  (load-theme 'leuven)
+  (set-face-background 'default "AntiqueWhite1")
+  (set-face-background 'fringe "AntiqueWhite1")
+)
+
 
 (use-package window-purpose
   :config
@@ -163,6 +164,7 @@
 
   (setq purpose-user-name-purposes
         '(("*Org Agenda(a)*" . org-agenda-day)
+          ("*eldoc*" . messages)
           ("*Org Agenda(t)*" . org-agenda-todo)))
 
   (setq purpose-user-regexp-purposes
