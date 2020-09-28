@@ -45,7 +45,6 @@
  '(ivy-height 20)
  '(ivy-use-virtual-buffers t)
  '(ivy-virtual-abbreviate (quote full))
- '(magit-bury-buffer-function (quote ignore))
  '(magit-completing-read-function (quote ivy-completing-read))
  '(magit-diff-expansion-threshold 5.0)
  '(magit-merge-arguments (quote ("--ff-only")))
@@ -58,9 +57,6 @@
  '(menu-bar-mode nil)
  '(minions-direct (quote (purpose-mode)))
  '(neo-theme (quote icons))
- '(org-agenda-files
-   (quote
-    ("~/Library/Mobile Documents/com~apple~CloudDocs/Org/main.org")))
  '(org-agenda-span (quote day))
  '(org-agenda-start-with-log-mode (quote (clock closed)))
  '(org-agenda-sticky t)
