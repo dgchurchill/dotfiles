@@ -162,6 +162,7 @@
   (setq purpose-user-mode-purposes
         '((magit-process-mode . messages)
           (flycheck-error-list-mode . messages)
+          (flymake-diagnostics-buffer-mode . messages)
           (elfeed-search-mode . directory)
           (elfeed-show-mode . preview)
           (help-mode . help)))
@@ -210,18 +211,6 @@
     (lambda (buffer) (when (string-prefix-p "*" (buffer-name buffer)) (kill-buffer buffer)))
     (buffer-list)))
 
-(defun non-file-visiting-buffer-query-function ()
-  "Ask before killing a buffer that is not visiting a file."
-  (let* ((buffer (current-buffer))
-         (buffer-name (buffer-name buffer)))
-    (or (buffer-file-name buffer)
-        (string-prefix-p " " buffer-name)
-        (string-prefix-p "*" buffer-name)
-        (not (buffer-modified-p buffer))
-        (yes-or-no-p (format "Buffer %S is not visiting a file; kill it? " (buffer-name (current-buffer)))))))
-
-(add-hook 'kill-buffer-query-functions 'non-file-visiting-buffer-query-function )
-
 (setq space-map (make-sparse-keymap))
 (global-set-key (kbd "M-SPC") space-map)
 (define-key space-map (kbd "q") (lambda () (interactive) (kill-buffer (current-buffer))))
@@ -230,8 +219,8 @@
 (define-key space-map (kbd "1") 'delete-other-windows)
 (define-key space-map (kbd "-") (lambda () (interactive) (select-window (split-window-below))))
 (define-key space-map (kbd "|") (lambda () (interactive) (select-window (split-window-right))))
-(define-key space-map (kbd "e n") 'flymake-goto-next-error)
-(define-key space-map (kbd "e p") 'flymake-goto-prev-error)
+(define-key space-map (kbd "e n") (lambda () (interactive) (if flycheck-mode (flycheck-next-error) (flymake-goto-next-error))))
+(define-key space-map (kbd "e p") (lambda () (interactive) (if flycheck-mode (flycheck-previous-error) (flymake-goto-prev-error))))
 
 (with-eval-after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "SPC") space-map))
@@ -346,6 +335,7 @@
 )
 
 (use-package company
+  :demand t
   :config
   (global-company-mode)
   :bind (("C-SPC" . company-complete)
@@ -362,6 +352,7 @@
 ;;          ("e n" . flycheck-next-error)))
 
 (use-package eglot)
+  ;; :hook (go-mode . eglot-ensure))
 
 (use-package fsharp-mode
   :mode "\\.fsx?\\'"
@@ -369,10 +360,6 @@
   (require 'eglot-fsharp)
   (add-hook 'fsharp-mode-hook 'eglot-ensure)
   (add-hook 'fsharp-mode-hook (lambda () (set (make-local-variable 'compile-command) "./build.sh")))
-)
-
-(use-package csharp-mode
-  :mode "\\.cs\\'"
 )
 
 (use-package elm-mode
@@ -430,7 +417,27 @@
           ))
   )
 
-(use-package php-mode)
+(use-package php-mode
+  :mode "\\.php\\'")
+
+(use-package lsp-mode
+  :disabled    ;; using eglot
+  :init
+  (setq lsp-keymap-prefix "C-l")
+  :hook ((lsp-mode . lsp-enable-which-key-integration)
+         (go-mode . lsp-deferred)))
+
+(use-package go-mode
+  :mode "\\.go\\'")
+
+(use-package csharp-mode
+  :mode "\\.cs\\'")
+
+(use-package omnisharp
+  ;; :hook csharp-mode
+  :config
+  (add-to-list 'company-backends 'company-omnisharp))
+
 
 (defun my-org-screenshot ()
   "Take a screenshot into a time stamped unique-named file in the
