@@ -22,6 +22,10 @@
 
 (use-package all-the-icons)
 
+(use-package undo-tree
+  :config
+  (global-undo-tree-mode))
+
 (cond
   ((eq system-type 'darwin)
     (set-face-font 'default "-*-Source Code Pro-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1")
