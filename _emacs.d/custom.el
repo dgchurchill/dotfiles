@@ -70,7 +70,7 @@
  '(org-log-into-drawer t)
  '(org-src-fontify-natively t)
  '(package-selected-packages
-   '(undo-tree omnisharp lsp-mode leuven-theme sql-indent go-mode php-mode eglot lsp org impatient-mode yaml-mode minions doom-themes company-box doom-modeline elpy elfeed all-the-icons neotree ivy-rich exec-path-from-shell flycheck window-purpose nord-theme fsharp-mode company gnuplot-mode ivy-hydra smex counsel projectile evil-magit tide web-mode typescript-mode powershell markdown-mode elm-mode which-key vlf use-package powerline magit gruvbox-theme evil csharp-mode ace-window))
+   '(elpher undo-tree omnisharp lsp-mode leuven-theme sql-indent go-mode php-mode eglot lsp org impatient-mode yaml-mode minions doom-themes company-box doom-modeline elpy elfeed all-the-icons neotree ivy-rich exec-path-from-shell flycheck window-purpose nord-theme fsharp-mode company gnuplot-mode ivy-hydra smex counsel projectile evil-magit tide web-mode typescript-mode powershell markdown-mode elm-mode which-key vlf use-package powerline magit gruvbox-theme evil csharp-mode ace-window))
  '(projectile-completion-system 'helm)
  '(rcirc-server-alist '(("irc.freenode.net")))
  '(reb-re-syntax 'string)
