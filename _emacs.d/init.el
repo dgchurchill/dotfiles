@@ -20,6 +20,12 @@
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
+(setq eshell-prompt-function
+  (function
+   (lambda ()
+     (concat (abbreviate-file-name (eshell/pwd)) "\n"
+	     (if (= (user-uid) 0) " # " " $ ")))))
+
 (use-package all-the-icons)
 
 (use-package undo-tree
