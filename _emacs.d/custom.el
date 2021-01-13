@@ -54,6 +54,8 @@
    '(("c:\\dev" . 2)
      ("C:\\Users\\Dave\\Documents\\Work" . 1)
      ("~/Projects" . 1)))
+ '(marginalia-annotators
+   '(marginalia-annotators-heavy marginalia-annotators-light nil))
  '(menu-bar-mode nil)
  '(minions-direct '(purpose-mode))
  '(neo-theme 'icons)

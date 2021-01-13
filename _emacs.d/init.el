@@ -23,6 +23,42 @@
 
 (server-start)
 
+(use-package selectrum
+  :config
+  (selectrum-mode))
+
+(use-package selectrum-prescient
+  :config
+  (selectrum-prescient-mode)
+  (prescient-persist-mode))
+
+(use-package marginalia
+  :bind (:map minibuffer-local-map
+              ("C-M-a" . marginalia-cycle)
+         ;; When using the Embark package, you can bind `marginalia-cycle' as an Embark action!
+         ;;:map embark-general-map
+         ;;     ("A" . marginalia-cycle)
+        )
+
+  ;; The :init configuration is always executed (Not lazy!)
+  :init
+
+  ;; Must be in the :init section of use-package such that the mode gets
+  ;; enabled right away. Note that this forces loading the package.
+  (marginalia-mode)
+
+  ;; When using Selectrum, ensure that Selectrum is refreshed when cycling annotations.
+  (advice-add #'marginalia-cycle :after
+              (lambda () (when (bound-and-true-p selectrum-mode) (selectrum-exhibit))))
+
+  ;; Prefer richer, more heavy, annotations over the lighter default variant.
+  ;; E.g. M-x will show the documentation string additional to the keybinding.
+  ;; By default only the keybinding is shown as annotation.
+  ;; Note that there is the command `marginalia-cycle' to
+  ;; switch between the annotators.
+  ;; (setq marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+)
+
 (use-package exec-path-from-shell)
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
@@ -200,13 +236,10 @@
 
   (purpose-compile-user-configuration)
 
-  (defalias 'ivy-switch-buffer-without-purpose
-    (without-purpose-command #'ivy-switch-buffer))
-
-  (define-purpose-prefix-overload purpose-ivy-switch-buffer-overload
-    '(ivy-switch-buffer
-      ivy-switch-buffer-without-purpose
-      purpose-switch-buffer-with-purpose))
+  :bind (
+    :map space-map
+         ("b" . purpose-switch-buffer-overload)
+         ("f" . purpose-find-file-overload))
 )
 
 (defun clean-up-saved-buffers ()
@@ -226,6 +259,7 @@
 
 (setq space-map (make-sparse-keymap))
 (global-set-key (kbd "M-SPC") space-map)
+(define-key space-map (kbd "SPC") 'execute-extended-command)
 (define-key space-map (kbd "q") (lambda () (interactive) (kill-buffer (current-buffer))))
 (define-key space-map (kbd "c") 'calc-dispatch)
 (define-key space-map (kbd "x") 'delete-window)
@@ -248,7 +282,7 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-iswitchb)
-(global-set-key (kbd "C-S-s") 'counsel-outline)
+;; (global-set-key (kbd "C-S-s") 'counsel-outline)
 
 (global-set-key "\C-x\C-b" 'ibuffer)
 
@@ -288,27 +322,25 @@
          ("w" . ace-window))
 )
 
-(use-package counsel
-  :init
-  (setq ivy-initial-inputs-alist '())
-  (setq counsel-git-grep-cmd-default "git --no-pager grep --full-name -n --no-color -i -e \"%s\"")
-  (setq counsel-git-grep-skip-counting-lines t)
-  :config
-  (ivy-mode 1)
-  (counsel-mode 1)
-  :bind (
-    ("C-s" . swiper)
-    ("M-x" . counsel-M-x)
-    ("<f1> f" . counsel-describe-function)
-    ("<f1> v" . counsel-describe-variable)
-    ("<f1> l" . counsel-find-library)
-    ("<f2> i" . counsel-info-lookup-symbol)
-    ("<f2> u" . counsel-unicode-char)
-    :map space-map
-    ("b" . purpose-ivy-switch-buffer-overload)
-    ("f" . counsel-find-file)
-    ("SPC" . counsel-M-x))
-)
+;; (use-package counsel
+;;   :init
+;;   (setq ivy-initial-inputs-alist '())
+;;   (setq counsel-git-grep-cmd-default "git --no-pager grep --full-name -n --no-color -i -e \"%s\"")
+;;   (setq counsel-git-grep-skip-counting-lines t)
+;;   :config
+;;   (ivy-mode 1)
+;;   (counsel-mode 1)
+;;   :bind (
+;;     ("C-s" . swiper)
+;;     ("M-x" . counsel-M-x)
+;;     ("<f1> f" . counsel-describe-function)
+;;     ("<f1> v" . counsel-describe-variable)
+;;     ("<f1> l" . counsel-find-library)
+;;     ("<f2> i" . counsel-info-lookup-symbol)
+;;     ("<f2> u" . counsel-unicode-char)
+;;     :map space-map
+;;     ("SPC" . counsel-M-x))
+;; )
 
 ;; This is slow when displaying fsharp project names...
 ;; (use-package ivy-rich
@@ -316,15 +348,15 @@
 ;;   (ivy-rich-mode 1)
 ;;   (setq ivy-rich-path-style 'abbrev))
 
-(use-package ivy-hydra)
+;; (use-package ivy-hydra)
 (use-package smex)
 
 (use-package magit
   :bind (("C-x C-g" . magit-status)
          :map space-map
-         ("g s" . magit-status)
-         ("g f" . counsel-git)
-         ("g g" . counsel-git-grep))
+         ("g s" . magit-status))
+         ;; ("g f" . counsel-git)
+         ;; ("g g" . counsel-git-grep))
   :hook
   (magit-mode . (lambda () (setq display-line-numbers nil)))
   :config
