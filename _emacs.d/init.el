@@ -389,15 +389,26 @@
          ("C-p" . 'company-select-previous))
 )
 
+(use-package company-quickhelp
+  :config
+  (company-quickhelp-mode))
+
 ;; (use-package company-box
 ;;   :hook (company-mode . company-box-mode))
 
-;; (use-package flycheck
-;;   :bind (:map space-map
-;;          ("e n" . flycheck-next-error)))
+(use-package flycheck)
+
+(use-package yasnippet
+  :config
+  (yas-global-mode))
 
 (use-package eglot)
-  ;; :hook (go-mode . eglot-ensure))
+  ;; :config
+  ;; (load "flycheck-eglot.el")
+  ;; (require 'flycheck-eglot))
+  ;; :hook (go-mode . (lambda ()
+  ;;                    ;; (eglot-ensure)
+  ;;                   (flycheck-add-next-checker 'eglot 'golangci-lint))))
 
 (use-package fsharp-mode
   :mode "\\.fsx?\\'"
@@ -475,7 +486,13 @@
          (go-mode . lsp-deferred)))
 
 (use-package go-mode
-  :mode "\\.go\\'")
+  :mode "\\.go\\'"
+  :config
+  (setq gofmt-command "goimports")
+  (add-hook 'before-save-hook 'gofmt-before-save))
+
+(use-package flycheck-golangci-lint
+  :hook (go-mode . flycheck-golangci-lint-setup))
 
 (use-package csharp-mode
   :mode "\\.cs\\'")
@@ -484,6 +501,14 @@
   ;; :hook csharp-mode
   :config
   (add-to-list 'company-backends 'company-omnisharp))
+
+
+(use-package terraform-mode
+  :mode "\\.tf\\'")
+
+(use-package company-terraform
+  :config
+  (company-terraform-init))
 
 
 (defun my-org-screenshot ()
