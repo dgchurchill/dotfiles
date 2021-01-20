@@ -23,6 +23,9 @@
 
 (server-start)
 
+(setq enable-recursive-minibuffers t)
+(minibuffer-depth-indicate-mode)
+
 (use-package selectrum
   :config
   (selectrum-mode))
@@ -58,6 +61,87 @@
   ;; switch between the annotators.
   ;; (setq marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
 )
+
+(use-package embark
+  :bind
+  ("C-S-a" . embark-act)               ; pick some comfortable binding
+  :config
+  ;; For Selectrum users:
+  (defun current-candidate+category ()
+    (when selectrum-active-p
+      (cons (selectrum--get-meta 'category)
+            (selectrum-get-current-candidate))))
+
+  (add-hook 'embark-target-finders #'current-candidate+category)
+
+  (defun current-candidates+category ()
+    (when selectrum-active-p
+      (cons (selectrum--get-meta 'category)
+            (selectrum-get-current-candidates
+             ;; Pass relative file names for dired.
+             minibuffer-completing-file-name))))
+
+  (add-hook 'embark-candidate-collectors #'current-candidates+category)
+
+  ;; No unnecessary computation delay after injection.
+  (add-hook 'embark-setup-hook 'selectrum-set-selected-candidate))
+
+(use-package consult
+  :bind (("C-x M-:" . consult-complex-command)
+         ("C-c h" . consult-history)
+         ("C-c m" . consult-mode-command)
+         ("C-c k" . consult-keep-lines)
+         ("C-x b" . consult-buffer)
+         ("C-x 4 b" . consult-buffer-other-window)
+         ("C-x 5 b" . consult-buffer-other-frame)
+         ("C-x r x" . consult-register)
+         ("C-x r b" . consult-bookmark)
+         ("M-g g" . consult-goto-line)
+         ("M-g M-g" . consult-goto-line)
+         ("C-S-s" . consult-outline)
+         ("C-s" . consult-line)
+         ("M-g m" . consult-mark)          ;; I recommend to bind Consult navigation
+         ("M-g k" . consult-global-mark)   ;; commands under the "M-g" prefix.
+         ("M-g r" . consult-git-grep)      ;; or consult-grep, consult-ripgrep
+         ("M-g f" . consult-find)          ;; or consult-locate, my-fdfind
+         ("M-g i" . consult-project-imenu) ;; or consult-imenu
+         ("M-g e" . consult-error)
+         ("M-s m" . consult-multi-occur)
+         ("M-y" . consult-yank-pop)
+         ("<help> a" . consult-apropos)
+
+         :map space-map
+         ("g f" . consult-find)
+         ("g g" . consult-git-grep))
+
+  :init
+  ;; Replace `multi-occur' with `consult-multi-occur', which is a drop-in replacement.
+  (fset 'multi-occur #'consult-multi-occur)
+
+  ;; Configure register preview function.
+  ;; This gives a consistent display for both `consult-register' and
+  ;; the register preview when editing registers.
+  (setq register-preview-delay 0
+        register-preview-function #'consult-register-preview)
+
+  :config
+  ;; Configure preview. Note that the preview-key can also be configured on a
+  ;; per-command basis via `consult-config'.
+  ;; The default value is 'any, such that any key triggers the preview.
+  ;; (setq consult-preview-key 'any)
+  ;; (setq consult-preview-key (kbd "M-p"))
+  ;; (setq consult-preview-key (list (kbd "<S-down>") (kbd "<S-up>")))
+
+  ;; Optionally configure narrowing key.
+  ;; Both < and C-+ work reasonably well.
+  (setq consult-narrow-key "<") ;; (kbd "C-+")
+  ;; Optionally make narrowing help available in the minibuffer.
+  ;; Probably not needed if you are using which-key.
+  ;; (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
+
+  ;; Optionally configure a function which returns the project root directory
+  (autoload 'projectile-project-root "projectile")
+  (setq consult-project-root-function #'projectile-project-root))
 
 (use-package exec-path-from-shell)
 (when (memq window-system '(mac ns))
@@ -117,6 +201,16 @@
 (desktop-save-mode 1)
 
 (add-to-list 'load-path (locate-user-emacs-file "extra/"))
+
+
+;; this is required so that the latest version will be pulled from a repo
+;; instead of using the version that comes with Emacs.
+;; eglot and some other packages need this
+(use-package project)
+
+
+(use-package pdf-tools)
+
 
 (require 'beancount)
 (add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode))
@@ -282,7 +376,6 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-iswitchb)
-;; (global-set-key (kbd "C-S-s") 'counsel-outline)
 
 (global-set-key "\C-x\C-b" 'ibuffer)
 
@@ -322,34 +415,7 @@
          ("w" . ace-window))
 )
 
-;; (use-package counsel
-;;   :init
-;;   (setq ivy-initial-inputs-alist '())
-;;   (setq counsel-git-grep-cmd-default "git --no-pager grep --full-name -n --no-color -i -e \"%s\"")
-;;   (setq counsel-git-grep-skip-counting-lines t)
-;;   :config
-;;   (ivy-mode 1)
-;;   (counsel-mode 1)
-;;   :bind (
-;;     ("C-s" . swiper)
-;;     ("M-x" . counsel-M-x)
-;;     ("<f1> f" . counsel-describe-function)
-;;     ("<f1> v" . counsel-describe-variable)
-;;     ("<f1> l" . counsel-find-library)
-;;     ("<f2> i" . counsel-info-lookup-symbol)
-;;     ("<f2> u" . counsel-unicode-char)
-;;     :map space-map
-;;     ("SPC" . counsel-M-x))
-;; )
-
-;; This is slow when displaying fsharp project names...
-;; (use-package ivy-rich
-;;   :config
-;;   (ivy-rich-mode 1)
-;;   (setq ivy-rich-path-style 'abbrev))
-
-;; (use-package ivy-hydra)
-(use-package smex)
+;; (use-package smex)
 
 (use-package magit
   :bind (("C-x C-g" . magit-status)
@@ -415,7 +481,6 @@
   :config
   (require 'eglot-fsharp)
   (add-hook 'fsharp-mode-hook 'eglot-ensure)
-  (add-hook 'fsharp-mode-hook (lambda () (set (make-local-variable 'compile-command) "./build.sh")))
 )
 
 (use-package elm-mode

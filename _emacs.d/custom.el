@@ -48,7 +48,6 @@
  '(ivy-use-virtual-buffers t)
  '(ivy-virtual-abbreviate 'full)
  '(lsp-file-watch-threshold 4000)
- '(magit-completing-read-function 'ivy-completing-read)
  '(magit-diff-expansion-threshold 5.0)
  '(magit-merge-arguments '("--ff-only"))
  '(magit-rebase-arguments '("--interactive"))
