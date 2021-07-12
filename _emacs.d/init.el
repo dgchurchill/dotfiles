@@ -26,6 +26,10 @@
 (setq enable-recursive-minibuffers t)
 (minibuffer-depth-indicate-mode)
 
+(setq space-map (make-sparse-keymap))
+(global-set-key (kbd "M-SPC") space-map)
+(global-set-key (kbd "C-M-S-<f1>") space-map)
+
 (use-package selectrum
   :config
   (selectrum-mode))
@@ -64,27 +68,8 @@
 
 (use-package embark
   :bind
-  ("C-S-a" . embark-act)               ; pick some comfortable binding
-  :config
-  ;; For Selectrum users:
-  (defun current-candidate+category ()
-    (when selectrum-active-p
-      (cons (selectrum--get-meta 'category)
-            (selectrum-get-current-candidate))))
-
-  (add-hook 'embark-target-finders #'current-candidate+category)
-
-  (defun current-candidates+category ()
-    (when selectrum-active-p
-      (cons (selectrum--get-meta 'category)
-            (selectrum-get-current-candidates
-             ;; Pass relative file names for dired.
-             minibuffer-completing-file-name))))
-
-  (add-hook 'embark-candidate-collectors #'current-candidates+category)
-
-  ;; No unnecessary computation delay after injection.
-  (add-hook 'embark-setup-hook 'selectrum-set-selected-candidate))
+  ("C-M-." . embark-act)               ; pick some comfortable binding
+)
 
 (use-package consult
   :bind (("C-x M-:" . consult-complex-command)
@@ -111,8 +96,7 @@
          ("<help> a" . consult-apropos)
 
          :map space-map
-         ("g f" . consult-find)
-         ("g g" . consult-git-grep))
+         ("g f" . consult-find))
 
   :init
   ;; Replace `multi-occur' with `consult-multi-occur', which is a drop-in replacement.
@@ -208,6 +192,16 @@
 ;; eglot and some other packages need this
 (use-package project)
 
+
+(use-package deadgrep
+  :bind (:map space-map
+         ("g g" . deadgrep)))
+
+(use-package helpful
+  :bind (("C-h f" . helpful-callable)
+         ("C-h v" . helpful-variable)
+         ("C-h k" . helpful-key)
+         ("C-c C-d" . helpful-at-point)))
 
 (use-package pdf-tools)
 
@@ -351,9 +345,8 @@
     (lambda (buffer) (when (string-prefix-p "*" (buffer-name buffer)) (kill-buffer buffer)))
     (buffer-list)))
 
-(setq space-map (make-sparse-keymap))
-(global-set-key (kbd "M-SPC") space-map)
 (define-key space-map (kbd "SPC") 'execute-extended-command)
+(define-key space-map (kbd "C-M-S-<f1>") 'execute-extended-command)
 (define-key space-map (kbd "q") (lambda () (interactive) (kill-buffer (current-buffer))))
 (define-key space-map (kbd "c") 'calc-dispatch)
 (define-key space-map (kbd "x") 'delete-window)
@@ -384,8 +377,6 @@
 
 (use-package evil
   :demand
-  :init
-  (setq evil-want-C-u-scroll t)
   :config
   (evil-mode 1)
   (define-key evil-motion-state-map (kbd "SPC") space-map)
@@ -433,6 +424,9 @@
     (evil-define-key 'normal magit-mode-map (kbd "SPC") space-map)
   )
 )
+
+;; (use-package forge
+;;   :after magit)
 
 (use-package which-key
   :config
@@ -503,6 +497,10 @@
 
 (use-package web-mode
   :mode "\\.tsx\\'"
+)
+
+(use-package yaml-mode
+  :mode "\\.yaml\\'"
 )
 
 (defun setup-tide-mode ()
