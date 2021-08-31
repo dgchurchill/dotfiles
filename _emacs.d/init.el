@@ -470,6 +470,11 @@
   ;;                    ;; (eglot-ensure)
   ;;                   (flycheck-add-next-checker 'eglot 'golangci-lint))))
 
+
+(use-package editorconfig
+  :config
+  (editorconfig-mode 1))
+
 (use-package fsharp-mode
   :mode "\\.fsx?\\'"
   :config
@@ -481,12 +486,24 @@
   :mode "\\.elm\\'"
 )
 
+
+(defun markdown-filter (buffer)
+  (princ
+   (with-temp-buffer
+     (let ((tmpname (buffer-name)))
+       (set-buffer buffer)
+       (set-buffer (markdown tmpname))
+       (buffer-string)))
+   (current-buffer)))
+
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
+  :init (setq markdown-command "multimarkdown")
+        (add-hook 'markdown-mode-hook (lambda () (imp-set-user-filter #'markdown-filter))))
+
 
 (use-package powershell
   :mode ("\\.ps1\\'" . powershell-mode))
