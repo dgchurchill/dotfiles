@@ -478,9 +478,11 @@
 (use-package fsharp-mode
   :mode "\\.fsx?\\'"
   :config
-  (require 'eglot-fsharp)
   (add-hook 'fsharp-mode-hook 'eglot-ensure)
 )
+
+(use-package eglot-fsharp
+  :after (fsharp-mode eglot))
 
 (use-package elm-mode
   :mode "\\.elm\\'"
@@ -559,7 +561,7 @@
   :mode "\\.php\\'")
 
 (use-package lsp-mode
-  :disabled    ;; using eglot
+  ;; :disabled    ;; using eglot
   :init
   (setq lsp-keymap-prefix "C-l")
   :hook ((lsp-mode . lsp-enable-which-key-integration)
@@ -570,6 +572,9 @@
   :config
   (setq gofmt-command "goimports")
   (add-hook 'before-save-hook 'gofmt-before-save))
+
+(use-package go-eldoc
+  :hook ((go-mode . go-eldoc-setup)))
 
 (use-package flycheck-golangci-lint
   :hook (go-mode . flycheck-golangci-lint-setup))
