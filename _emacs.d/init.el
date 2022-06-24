@@ -164,6 +164,7 @@
 
   ((eq system-type 'windows-nt)
     (set-face-font 'default "-*-Consolas-normal-normal-normal-*-14-*-*-*-m-0-iso8859-1")
+    ;; (set-face-font 'default "-*-Consolas-normal-normal-normal-*-26-*-*-*-m-0-iso8859-1")
 
     (setq inhibit-compacting-font-caches t) ;; Speed things up when using all-the-icons
 
@@ -594,6 +595,10 @@
 (use-package company-terraform
   :config
   (company-terraform-init))
+
+(use-package bicep-mode
+  :straight (bicep-mode :type git :host github :repo "christiaan-janssen/bicep-mode")
+  :mode "\\.bicep\\'")
 
 
 (defun my-org-screenshot ()
