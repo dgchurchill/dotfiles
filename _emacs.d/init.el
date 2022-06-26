@@ -252,19 +252,19 @@
       (let ((active (doom-modeline--active)))
         (if (bound-and-true-p minions-mode)
             (concat
-             (doom-modeline-spc)
+             doom-modeline-spc
              (format-mode-line minions-mode-line-modes
                                (if active
                                    'doom-modeline-buffer-minor-mode
                                  'mode-line-inactive))
-             (doom-modeline-spc))
+             doom-modeline-spc)
           (propertize
            (concat
             (replace-regexp-in-string (regexp-quote "%")
                                       "%%%%"
                                       (format-mode-line minor-mode-alist)
                                       t t)
-            (doom-modeline-spc))
+            doom-modeline-spc)
            'face (if active
                      'doom-modeline-buffer-minor-mode
                    'mode-line-inactive))))))
