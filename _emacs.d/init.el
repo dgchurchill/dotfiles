@@ -480,6 +480,7 @@
   :mode "\\.fsx?\\'"
   :config
   (add-hook 'fsharp-mode-hook 'eglot-ensure)
+  (add-hook 'fsharp-mode-hook 'dap-auto-configure-mode)
 )
 
 (use-package eglot-fsharp
@@ -567,6 +568,10 @@
   (setq lsp-keymap-prefix "C-l")
   :hook ((lsp-mode . lsp-enable-which-key-integration)
          (go-mode . lsp-deferred)))
+
+(use-package dap-mode
+  :config
+  (require 'dap-netcore))
 
 (use-package go-mode
   :mode "\\.go\\'"
