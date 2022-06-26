@@ -62,7 +62,7 @@
  '(marginalia-annotators
    '(marginalia-annotators-heavy marginalia-annotators-light nil) t)
  '(menu-bar-mode nil)
- '(minions-direct '(purpose-mode))
+ '(minions-prominent-modes '(purpose-mode))
  '(neo-theme 'icons)
  '(org-agenda-span 'day)
  '(org-agenda-start-with-log-mode '(clock closed))
@@ -90,6 +90,7 @@
  '(tool-bar-mode nil)
  '(truncate-lines t)
  '(truncate-partial-width-windows nil)
+ '(undo-tree-auto-save-history nil)
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    '((20 . "#ff9da4")
