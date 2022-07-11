@@ -163,7 +163,7 @@
   )
 
   ((eq system-type 'windows-nt)
-    (if (< (display-pixel-height) 1600)
+    (if (< (display-pixel-height) 1850)
       (set-face-font 'default "-*-Consolas-normal-normal-normal-*-14-*-*-*-m-0-iso8859-1")
       (set-face-font 'default "-*-Consolas-normal-normal-normal-*-24-*-*-*-m-0-iso8859-1"))
 
