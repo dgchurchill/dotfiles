@@ -243,36 +243,9 @@
 (use-package doom-modeline
   :hook
   (after-init . doom-modeline-mode)
-  (doom-modeline-mode . (lambda () (doom-modeline-set-modeline 'custom 'default)))
 
   :config
   (setq doom-modeline-minor-modes t)
-
-  (doom-modeline-def-segment minor-modes
-    (when doom-modeline-minor-modes
-      (let ((active (doom-modeline--active)))
-        (if (bound-and-true-p minions-mode)
-            (concat
-             doom-modeline-spc
-             (format-mode-line minions-mode-line-modes
-                               (if active
-                                   'doom-modeline-buffer-minor-mode
-                                 'mode-line-inactive))
-             doom-modeline-spc)
-          (propertize
-           (concat
-            (replace-regexp-in-string (regexp-quote "%")
-                                      "%%%%"
-                                      (format-mode-line minor-mode-alist)
-                                      t t)
-            doom-modeline-spc)
-           'face (if active
-                     'doom-modeline-buffer-minor-mode
-                   'mode-line-inactive))))))
-
-  (doom-modeline-def-modeline 'custom
-    '(bar workspace-name window-number modals matches buffer-info remote-host buffer-position parrot selection-info)
-    '(objed-state misc-info persp-name irc mu4e github debug lsp minor-modes input-method indent-info buffer-encoding process vcs checker))
 )
 
 (use-package leuven-theme
