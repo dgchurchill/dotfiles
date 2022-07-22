@@ -343,7 +343,10 @@
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-cb" 'org-iswitchb)
+
+(define-key space-map (kbd "o l") 'org-store-link)
+(define-key space-map (kbd "o a") 'org-agenda)
+(define-key space-map (kbd "o c") 'org-capture)
 
 (global-set-key "\C-x\C-b" 'ibuffer)
 
@@ -449,6 +452,10 @@
 (use-package editorconfig
   :config
   (editorconfig-mode 1))
+
+(use-package highlight-indent-guides
+  :hook (prog-mode . highlight-indent-guides-mode))
+
 
 (use-package fsharp-mode
   :mode "\\.fsx?\\'"
