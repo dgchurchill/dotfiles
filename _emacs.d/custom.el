@@ -75,6 +75,7 @@
  '(org-clock-into-drawer 1)
  '(org-clock-mode-line-total 'current)
  '(org-clock-report-include-clocking-task t)
+ '(org-fold-catch-invisible-edits 'error)
  '(org-html-postamble nil)
  '(org-image-actual-width '(800))
  '(org-log-into-drawer t)
