@@ -35,6 +35,7 @@
  '(evil-mode t)
  '(evil-respect-visual-line-mode t)
  '(evil-undo-system 'undo-tree)
+ '(evil-want-C-i-jump nil)
  '(evil-want-C-u-scroll t)
  '(fci-rule-color "#003f8e")
  '(flycheck-display-errors-function 'flycheck-display-error-messages-unless-error-list)
@@ -67,7 +68,7 @@
  '(neo-theme 'icons)
  '(org-agenda-span 'day)
  '(org-agenda-start-with-clockreport-mode t)
- '(org-agenda-start-with-log-mode 'clockcheck)
+ '(org-agenda-start-with-log-mode '(closed clock))
  '(org-agenda-sticky t)
  '(org-babel-load-languages '((calc . t) (emacs-lisp . t) (js . t)))
  '(org-catch-invisible-edits 'error)
@@ -123,6 +124,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(bookmark-face ((t (:foreground "DarkOrange1"))))
  '(ediff-fine-diff-A ((t (:box (:line-width 1 :style released-button)))))
  '(ediff-fine-diff-B ((t (:box (:line-width 1 :style released-button)))))
  '(ivy-highlight-face ((t nil)))
