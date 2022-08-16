@@ -347,6 +347,13 @@
 (define-key space-map (kbd "o l") 'org-store-link)
 (define-key space-map (kbd "o a") 'org-agenda)
 (define-key space-map (kbd "o c") 'org-capture)
+(define-key space-map (kbd "o x i") 'org-clock-in)
+(define-key space-map (kbd "o x x") 'org-clock-in-last)
+(define-key space-map (kbd "o x z") 'org-resolve-clocks)
+(define-key space-map (kbd "o x o") 'org-clock-out)
+(define-key space-map (kbd "o x j") 'org-clock-goto)
+(define-key space-map (kbd "o x q") 'org-clock-cancel)
+(define-key space-map (kbd "o x d") 'org-clock-display)
 
 (global-set-key "\C-x\C-b" 'ibuffer)
 
