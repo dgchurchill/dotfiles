@@ -410,6 +410,9 @@
   )
 )
 
+(use-package orgit
+  :after magit)
+
 ;; (use-package forge
 ;;   :after magit)
 
