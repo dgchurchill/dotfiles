@@ -30,14 +30,16 @@
 (global-set-key (kbd "M-SPC") space-map)
 (global-set-key (kbd "C-M-S-<f1>") space-map)
 
-(use-package selectrum
-  :config
-  (selectrum-mode))
+(use-package prescient)
 
-(use-package selectrum-prescient
-  :config
-  (selectrum-prescient-mode)
-  (prescient-persist-mode))
+(use-package vertico
+  :straight (:files (:defaults "extensions/*"))
+  :init
+  (vertico-mode))
+
+(use-package vertico-prescient
+  :init
+  (vertico-prescient-mode))
 
 (use-package marginalia
   :bind (:map minibuffer-local-map
@@ -53,10 +55,6 @@
   ;; Must be in the :init section of use-package such that the mode gets
   ;; enabled right away. Note that this forces loading the package.
   (marginalia-mode)
-
-  ;; When using Selectrum, ensure that Selectrum is refreshed when cycling annotations.
-  (advice-add #'marginalia-cycle :after
-              (lambda () (when (bound-and-true-p selectrum-mode) (selectrum-exhibit))))
 
   ;; Prefer richer, more heavy, annotations over the lighter default variant.
   ;; E.g. M-x will show the documentation string additional to the keybinding.

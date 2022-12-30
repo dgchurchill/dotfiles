@@ -84,6 +84,8 @@
  '(org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "DONE(d)")))
  '(package-selected-packages
    '(flycheck-golangci-lint company-terraform terraform-mode company-quickhelp ibuffer-project elpher undo-tree omnisharp lsp-mode leuven-theme sql-indent go-mode php-mode eglot lsp org impatient-mode yaml-mode minions doom-themes company-box doom-modeline elpy elfeed all-the-icons neotree ivy-rich exec-path-from-shell flycheck window-purpose nord-theme fsharp-mode company gnuplot-mode ivy-hydra smex counsel projectile evil-magit tide web-mode typescript-mode powershell markdown-mode elm-mode which-key vlf use-package powerline magit gruvbox-theme evil csharp-mode ace-window))
+ '(prescient-filter-method '(literal regexp initialism prefix))
+ '(prescient-sort-full-matches-first t)
  '(profiler-sampling-interval 50000)
  '(projectile-completion-system 'helm)
  '(rcirc-server-alist '(("irc.freenode.net")))
