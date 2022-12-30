@@ -329,6 +329,8 @@
 (define-key space-map (kbd "e n") (lambda () (interactive) (if flycheck-mode (flycheck-next-error) (flymake-goto-next-error))))
 (define-key space-map (kbd "e p") (lambda () (interactive) (if flycheck-mode (flycheck-previous-error) (flymake-goto-prev-error))))
 
+(require 'org-protocol)
+
 (with-eval-after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "SPC") space-map))
 

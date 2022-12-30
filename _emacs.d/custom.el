@@ -82,6 +82,7 @@
  '(org-log-into-drawer t)
  '(org-src-fontify-natively t)
  '(org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "DONE(d)")))
+ '(org-table-convert-region-max-lines 9999)
  '(package-selected-packages
    '(flycheck-golangci-lint company-terraform terraform-mode company-quickhelp ibuffer-project elpher undo-tree omnisharp lsp-mode leuven-theme sql-indent go-mode php-mode eglot lsp org impatient-mode yaml-mode minions doom-themes company-box doom-modeline elpy elfeed all-the-icons neotree ivy-rich exec-path-from-shell flycheck window-purpose nord-theme fsharp-mode company gnuplot-mode ivy-hydra smex counsel projectile evil-magit tide web-mode typescript-mode powershell markdown-mode elm-mode which-key vlf use-package powerline magit gruvbox-theme evil csharp-mode ace-window))
  '(prescient-filter-method '(literal regexp initialism prefix))
@@ -121,7 +122,9 @@
      (360 . "#d1f1a9")))
  '(vc-annotate-very-old-color nil)
  '(w32-system-shells
-   '("cmd" "cmd.exe" "command" "command.com" "4nt" "4nt.exe" "4dos" "4dos.exe" "tcc" "tcc.exe" "ndos" "ndos.exe")))
+   '("cmd" "cmd.exe" "command" "command.com" "4nt" "4nt.exe" "4dos" "4dos.exe" "tcc" "tcc.exe" "ndos" "ndos.exe"))
+ '(whitespace-style
+   '(face trailing tabs spaces newline missing-newline-at-eof empty indentation space-after-tab space-before-tab space-mark tab-mark newline-mark)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
