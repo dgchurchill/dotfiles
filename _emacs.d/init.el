@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
+;; (setq gc-cons-threshold 100000000)
+
 (setq straight-use-package-by-default t)
 
 (defvar bootstrap-version)
@@ -29,6 +31,12 @@
 (setq space-map (make-sparse-keymap))
 (global-set-key (kbd "M-SPC") space-map)
 (global-set-key (kbd "C-M-S-<f1>") space-map)
+
+(use-package esup
+  :custom
+  ;; Work around a bug where esup tries to step into the byte-compiled
+  ;; version of `cl-lib', and fails horribly.
+  (esup-depth 0))
 
 (use-package prescient)
 
@@ -203,13 +211,14 @@
          ("C-h k" . helpful-key)
          ("C-c C-d" . helpful-at-point)))
 
-(use-package pdf-tools)
+(use-package pdf-tools
+  :mode ("\\.[pP][dD][fF]\\'" . pdf-view-mode))
 
 
 (require 'beancount)
 (add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode))
 
-(require 'ox-confluence)
+;; (require 'ox-confluence)
 
 (use-package flyspell
   :init
@@ -459,6 +468,10 @@
   ;;                   (flycheck-add-next-checker 'eglot 'golangci-lint))))
 
 
+(use-package tree-sitter)
+(use-package tree-sitter-langs)
+
+
 (use-package editorconfig
   :config
   (editorconfig-mode 1))
@@ -538,6 +551,7 @@
   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
 (use-package elfeed
+  :commands (elfeed)
   :init
   (setq elfeed-feeds
         '(("https://forums.aws.amazon.com/rss/rssannounce.jspa?forumID=24" aws s3)  ;; S3 announcements

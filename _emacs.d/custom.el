@@ -17,6 +17,8 @@
  '(company-quickhelp-delay 0.2)
  '(company-quickhelp-mode t)
  '(company-transformers '(company-sort-prefer-same-case-prefix))
+ '(consult-find-args
+   "C:\\msys64\\usr\\bin\\find.exe . -not ( -wholename '*/.*' -prune )")
  '(consult-find-command "git ls-files --full-name -- *ARG*")
  '(custom-safe-themes
    '("c505ae23385324c21821b24c9cc1d68d8da6f3cfb117eb18826d146b8ec01b15" "aba75724c5d4d0ec0de949694bce5ce6416c132bb031d4e7ac1c4f2dbdd3d580" "039c01abb72985a21f4423dd480ddb998c57d665687786abd4e16c71128ef6ad" "890a1a44aff08a726439b03c69ff210fe929f0eff846ccb85f78ee0e27c7b2ea" "f7216d3573e1bd2a2b47a2331f368b45e7b5182ddbe396d02b964b1ea5c5dc27" "8d7684de9abb5a770fbfd72a14506d6b4add9a7d30942c6285f020d41d76e0fa" "79278310dd6cacf2d2f491063c4ab8b129fee2a498e4c25912ddaa6c3c5b621e" "fa3bdd59ea708164e7821574822ab82a3c51e262d419df941f26d64d015c90ee" "43c808b039893c885bdeec885b4f7572141bd9392da7f0bd8d8346e02b2ec8da" "d2e9c7e31e574bf38f4b0fb927aaff20c1e5f92f72001102758005e53d77b8c9" "49ec957b508c7d64708b40b0273697a84d3fee4f15dd9fc4a9588016adee3dad" "f0dc4ddca147f3c7b1c7397141b888562a48d9888f1595d69572db73be99a024" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "585942bb24cab2d4b2f74977ac3ba6ddbd888e3776b9d2f993c5704aa8bb4739" "b583823b9ee1573074e7cbfd63623fe844030d911e9279a7c8a5d16de7df0ed0" "8e797edd9fa9afec181efbfeeebf96aeafbd11b69c4c85fa229bb5b9f7f7e66c" "2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" "7f89ec3c988c398b88f7304a75ed225eaac64efa8df3638c815acc563dfd3b55" "bf390ecb203806cbe351b966a88fc3036f3ff68cd2547db6ee3676e87327b311" "7527f3308a83721f9b6d50a36698baaedc79ded9f6d5bd4e9a28a22ab13b3cb1" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default))
@@ -66,6 +68,7 @@
  '(menu-bar-mode nil)
  '(minions-prominent-modes '(purpose-mode))
  '(neo-theme 'icons)
+ '(org-agenda-skip-scheduled-if-done t)
  '(org-agenda-span 'day)
  '(org-agenda-start-with-clockreport-mode t)
  '(org-agenda-start-with-log-mode '(closed clock))
@@ -81,8 +84,8 @@
  '(org-image-actual-width '(800))
  '(org-log-into-drawer t)
  '(org-src-fontify-natively t)
- '(org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "DONE(d)")))
  '(org-table-convert-region-max-lines 9999)
+ '(org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "DONE(d)")))
  '(package-selected-packages
    '(flycheck-golangci-lint company-terraform terraform-mode company-quickhelp ibuffer-project elpher undo-tree omnisharp lsp-mode leuven-theme sql-indent go-mode php-mode eglot lsp org impatient-mode yaml-mode minions doom-themes company-box doom-modeline elpy elfeed all-the-icons neotree ivy-rich exec-path-from-shell flycheck window-purpose nord-theme fsharp-mode company gnuplot-mode ivy-hydra smex counsel projectile evil-magit tide web-mode typescript-mode powershell markdown-mode elm-mode which-key vlf use-package powerline magit gruvbox-theme evil csharp-mode ace-window))
  '(prescient-filter-method '(literal regexp initialism prefix))
