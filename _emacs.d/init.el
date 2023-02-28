@@ -171,7 +171,7 @@
   ((eq system-type 'windows-nt)
     (if (< (display-pixel-height) 1850)
       (set-face-font 'default "-*-Consolas-normal-normal-normal-*-14-*-*-*-m-0-iso8859-1")
-      (set-face-font 'default "-*-Consolas-normal-normal-normal-*-24-*-*-*-m-0-iso8859-1"))
+      (set-face-font 'default "-*-Consolas-normal-normal-normal-*-28-*-*-*-m-0-iso8859-1"))
 
     (setq inhibit-compacting-font-caches t) ;; Speed things up when using all-the-icons
 
@@ -621,6 +621,58 @@
    (shell-command (concat "powershell -command \"Add-Type -AssemblyName System.Windows.Forms;if ($([System.Windows.Forms.Clipboard]::ContainsImage())) {$image = [System.Windows.Forms.Clipboard]::GetImage();[System.Drawing.Bitmap]$image.Save('" filename "',[System.Drawing.Imaging.ImageFormat]::Png); Write-Output 'clipboard content saved as file'} else {Write-Output 'clipboard does not contain image data'}\""))
    (insert (concat "[[file:" filename "]]"))
    (org-display-inline-images))
+
+
+(defun my-org-silent-clock-in ()
+  "Clock in without affecting the currently running clock"
+  (interactive)
+  (org-clock-find-position nil)
+  (insert-before-markers "\n")
+  (backward-char 1)
+  (when (and (save-excursion
+               (end-of-line 0)
+               (org-in-item-p)))
+    (beginning-of-line 1)
+    (indent-line-to (max 0 (- (current-indentation) 2))))
+  (insert org-clock-string " ")
+  (org-insert-time-stamp (org-current-time org-clock-rounding-minutes t) 'with-hm 'inactive)
+  (org-indent-line))
+
+(defun my-org-silent-clock-out ()
+  "Clock out without affecting the currently running clock"
+  (interactive)
+  (let ((now (org-current-time org-clock-rounding-minutes))
+	    ts te s h m remove)
+    (org-clock-find-position nil)
+	(beginning-of-line 1)
+	(if (and (looking-at (concat "[ \t]*" org-keyword-time-regexp))
+		     (equal (match-string 1) org-clock-string))
+	    (setq ts (match-string 2))
+	  (error "Clock start time is gone"))
+	(goto-char (match-end 0))
+	(delete-region (point) (point-at-eol))
+	(insert "--")
+	(setq te (org-insert-time-stamp now 'with-hm 'inactive))
+	(setq s (org-time-convert-to-integer
+		     (time-subtract
+		      (org-time-string-to-time te)
+		      (org-time-string-to-time ts)))
+		  h (floor s 3600)
+		  m (floor (mod s 3600) 60))
+	(insert " => " (format "%2d:%02d" h m))
+	;; Possibly remove zero time clocks.
+    (when (and org-clock-out-remove-zero-time-clocks
+		       (= 0 h m))
+      (setq remove t)
+	  (delete-region (line-beginning-position)
+			         (line-beginning-position 2)))
+    (org-clock-remove-empty-clock-drawer)
+	(message (if remove
+		         "Clock stopped at %s after %s => LINE REMOVED"
+		       "Clock stopped at %s after %s")
+		     te (org-duration-from-minutes (+ (* 60 h) m)))
+    ))
+
 
 (let ((local-config "~/.emacs.d/local.el"))
   (when (file-exists-p local-config)
