@@ -32,16 +32,18 @@
 (global-set-key (kbd "M-SPC") space-map)
 (global-set-key (kbd "C-M-S-<f1>") space-map)
 
+
 (use-package esup
   :custom
   ;; Work around a bug where esup tries to step into the byte-compiled
   ;; version of `cl-lib', and fails horribly.
   (esup-depth 0))
 
+(use-package org)
+
 (use-package prescient)
 
 (use-package vertico
-  :straight (:files (:defaults "extensions/*"))
   :init
   (vertico-mode))
 
@@ -111,8 +113,8 @@
   ;; Configure register preview function.
   ;; This gives a consistent display for both `consult-register' and
   ;; the register preview when editing registers.
-  (setq register-preview-delay 0
-        register-preview-function #'consult-register-preview)
+  ;; (setq register-preview-delay 0
+  ;;       register-preview-function #'consult-register-preview)
 
   :config
   ;; Configure preview. Note that the preview-key can also be configured on a
@@ -337,6 +339,8 @@
 (define-key space-map (kbd "|") (lambda () (interactive) (select-window (split-window-right))))
 (define-key space-map (kbd "e n") (lambda () (interactive) (if flycheck-mode (flycheck-next-error) (flymake-goto-next-error))))
 (define-key space-map (kbd "e p") (lambda () (interactive) (if flycheck-mode (flycheck-previous-error) (flymake-goto-prev-error))))
+(define-key space-map (kbd "f") 'find-file)
+(define-key space-map (kbd "b") 'switch-to-buffer)
 
 (require 'org-protocol)
 
@@ -440,7 +444,7 @@
   :demand t
   :config
   (global-company-mode)
-  :bind (("C-SPC" . company-complete)
+  :bind (;("C-SPC" . company-complete)
          :map company-active-map
          ("C-n" . 'company-select-next)
          ("C-p" . 'company-select-previous))
