@@ -149,3 +149,10 @@
 ;;; Magit
 
 (use-package magit)
+
+
+;;; environment specific settings
+
+(let ((local-config "~/.emacs.d/local.el"))
+  (when (file-exists-p local-config)
+      (load local-config)))
