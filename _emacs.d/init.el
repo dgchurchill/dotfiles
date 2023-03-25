@@ -34,6 +34,11 @@
   :init
   (exec-path-from-shell-initialize))
 
+
+;;; General keybindings
+
+(global-set-key (kbd "C-x C-b") #'ibuffer)
+
 ;; Set up escape as a leader
 ;;
 ;; <escape> is the escape key when in a window system. It's normally translated to ESC (^[) by
@@ -53,10 +58,12 @@
 (set-face-attribute 'fixed-pitch nil :family "Iosevka Slab" :height 1.0 :weight 'light)
 (set-face-attribute 'variable-pitch nil :family "Iosevka Etoile" :height 1.0 :weight 'light)
 
+(use-package diminish)
 
 ;;; Help
 
 (use-package which-key
+  :diminish
   :init
   (which-key-mode))
 
@@ -77,6 +84,12 @@
          ("M-A" . marginalia-cycle))
   :init
   (marginalia-mode))
+
+(use-package corfu
+  :straight (corfu :files (:defaults "extensions/*.el"))
+  :init
+  (global-corfu-mode)
+  (corfu-popupinfo-mode))
 
 (use-package consult
   :bind (;; C-c bindings (mode-specific-map)
