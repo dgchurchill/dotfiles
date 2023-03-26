@@ -164,6 +164,24 @@
 (use-package magit)
 
 
+;;; Progamming modes
+
+(use-package eglot
+  :defer t) ; straight will set up the autoloads. given that, could probably set use-package-always-defer to t
+
+
+;;;; F#
+
+(use-package fsharp-mode
+  :mode "\\.fs\\'"
+  :config
+  (add-hook 'fsharp-mode-hook #'eglot-ensure))
+
+;; note: need to interactively invoke eglot in an fsharp buffer once in order to get FsAutocomplete installed
+(use-package eglot-fsharp
+  :after (eglot fsharp-mode))
+
+
 ;;; environment specific settings
 
 (let ((local-config "~/.emacs.d/local.el"))
