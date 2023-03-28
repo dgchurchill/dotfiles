@@ -1,6 +1,7 @@
 ;;; Set up straight and use-package
 
 (setq straight-use-package-by-default t)
+(setq straight-use-symlinks t) ; use symlinks, even on Windows (requires Developer Mode to be turned on in Windows to avoid UAC prompts)
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
