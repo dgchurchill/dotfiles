@@ -18,6 +18,7 @@
 
 (straight-use-package 'use-package)
 (eval-when-compile (require 'use-package))
+(setq use-package-always-defer t) ; Straight will automatically load the autoloads, so shouldn't need to set up :commands explicitly. Can always use :demand to override if necessary.
 
 
 ;;; Core settings
@@ -52,6 +53,7 @@
 ;;; Themes and appearance
 
 (use-package modus-themes
+  :demand t
   :config
   (load-theme 'modus-operandi-tinted))
 
@@ -219,8 +221,7 @@
 
 ;;; Progamming modes
 
-(use-package eglot
-  :defer t) ; straight will set up the autoloads. given that, could probably set use-package-always-defer to t
+(use-package eglot)
 
 
 ;;;; F#
