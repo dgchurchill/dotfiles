@@ -233,6 +233,7 @@
 
 ;; note: need to interactively invoke eglot in an fsharp buffer once in order to get FsAutocomplete installed
 (use-package eglot-fsharp
+  :demand t
   :after (eglot fsharp-mode))
 
 
