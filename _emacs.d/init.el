@@ -236,6 +236,12 @@
   :demand t
   :after (eglot fsharp-mode))
 
+;;;; Markdown
+
+(use-package markdown-mode
+  :mode ("README\\.md\\'" . gfm-mode)
+  :custom (markdown-command '("pandoc" "--from=markdown" "--to=html5"))
+  )
 
 ;;; environment specific settings
 
