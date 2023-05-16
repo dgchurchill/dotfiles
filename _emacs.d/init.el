@@ -223,6 +223,13 @@
   (browse-url (magit-get "remote" (magit-get-remote) "url")))
 
 
+;;; Utilities
+
+(use-package deadgrep
+  :bind (:map escape-map
+         ("g g" . deadgrep))
+)
+
 ;;; Progamming modes
 
 (use-package eglot)
