@@ -161,7 +161,7 @@
   (add-hook 'org-mode-hook 'variable-pitch-mode)
   (add-hook 'org-mode-hook 'visual-line-mode))
 
-(defun my-org-silent-clock-in ()
+(defun dgc/org-silent-clock-in ()
   "Clock in without affecting the currently running clock"
   (interactive)
   (require 'org-clock)
@@ -177,7 +177,7 @@
   (org-insert-time-stamp (org-current-time org-clock-rounding-minutes t) 'with-hm 'inactive)
   (org-indent-line))
 
-(defun my-org-silent-clock-out ()
+(defun dgc/org-silent-clock-out ()
   "Clock out without affecting the currently running clock"
   (interactive)
   (require 'org-clock)
@@ -218,6 +218,10 @@
 
 (use-package magit)
 
+(defun dgc/magit-browse-remote ()
+    (interactive)
+  (browse-url (magit-get "remote" (magit-get-remote) "url")))
+
 
 ;;; Progamming modes
 
@@ -242,6 +246,7 @@
   :mode ("README\\.md\\'" . gfm-mode)
   :custom (markdown-command '("pandoc" "--from=markdown" "--to=html5"))
   )
+
 
 ;;; environment specific settings
 
