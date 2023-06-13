@@ -36,6 +36,8 @@
   :init
   (exec-path-from-shell-initialize))
 
+(when (eq window-system 'w32)
+  (setq explicit-shell-file-name "pwsh"))
 
 ;;; General keybindings
 
@@ -48,7 +50,7 @@
 ;; the M- keybindings actually live (via the meta-prefix-char variable).
 (setq escape-map (make-sparse-keymap))
 (global-set-key (kbd "<escape>") escape-map)
-
+(define-key escape-map (kbd "b k") #'kill-current-buffer)
 
 ;;; Themes and appearance
 
