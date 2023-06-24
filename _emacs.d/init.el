@@ -50,7 +50,9 @@
 ;; the M- keybindings actually live (via the meta-prefix-char variable).
 (setq escape-map (make-sparse-keymap))
 (global-set-key (kbd "<escape>") escape-map)
+(define-key escape-map (kbd "ESC") #'keyboard-escape-quit)
 (define-key escape-map (kbd "b k") #'kill-current-buffer)
+
 
 ;;; Themes and appearance
 
@@ -140,8 +142,8 @@
          ;; Isearch integration
          ("M-s e" . consult-isearch-history)
          :map isearch-mode-map
-         ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
-         ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
+         ;; ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
+         ;; ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
          ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
          ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
          ;; Minibuffer history
@@ -248,6 +250,10 @@
 (use-package eglot-fsharp
   :demand t
   :after (eglot fsharp-mode))
+
+(use-package ob-fsharp
+  :demand t
+  :after (org))
 
 ;;;; Markdown
 
