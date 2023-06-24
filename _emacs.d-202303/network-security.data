@@ -1,4 +1,0 @@
-(
- (:id "sha1:6d4eb958390599243ba9f5035cb671fa8dd6a93a" :fingerprint "sha1:23:50:d2:49:d9:a3:85:ba:13:b5:12:bc:8e:51:f0:09:05:db:1a:f7" :host "elpa.gnu.org:443" :conditions (:insecure :unknown-ca :invalid))
- (:id "sha1:85b31c268009209a8d3c5387033b219264f7e62b" :fingerprint "sha1:1d:b6:8e:19:c0:25:8c:08:d6:cb:bd:e5:07:fa:42:4d:32:81:09:94" :host "melpa.org:443" :conditions (:insecure :unknown-ca :invalid))
-)
