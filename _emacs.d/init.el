@@ -253,7 +253,7 @@
          ("g g" . deadgrep))
 )
 
-;;; Progamming modes
+;;; Progamming / text editing modes
 
 (use-package eglot)
 
@@ -262,7 +262,7 @@
 
 (use-package fsharp-mode
   :mode "\\.fs\\'"
-  :config
+  :init
   (add-hook 'fsharp-mode-hook #'eglot-ensure))
 
 ;; note: need to interactively invoke eglot in an fsharp buffer once in order to get FsAutocomplete installed
@@ -274,12 +274,24 @@
   :demand t
   :after (org))
 
+
 ;;;; Markdown
 
 (use-package markdown-mode
   :mode ("README\\.md\\'" . gfm-mode)
   :custom (markdown-command '("pandoc" "--from=markdown" "--to=html5"))
   )
+
+
+;;;; Beancount
+
+(use-package beancount-mode
+  :straight (:type git :host github :repo "beancount/beancount-mode")
+  :mode "\\.beancount\\'"
+  :init
+  (add-hook 'beancount-mode-hook #'outline-minor-mode)
+  :custom
+  (beancount-use-ido nil))
 
 
 ;;; environment specific settings
