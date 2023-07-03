@@ -78,12 +78,16 @@
   (lambda (buffer-name action)
     (with-current-buffer buffer-name (apply #'derived-mode-p major-modes))))
 
-(setq display-buffer-alist
-      `((,(make-display-buffer-matcher-function '(shell-mode))
-         (display-buffer-in-direction)
-         (window . root)
-         (window-height . 15)
-         (direction . bottom))))
+(setq
+  switch-to-buffer-in-dedicated-window 'pop
+  switch-to-buffer-obey-display-actions t
+
+  display-buffer-alist
+    `((,(make-display-buffer-matcher-function '(shell-mode))
+       (display-buffer-reuse-mode-window display-buffer-in-direction)
+       (window . root)
+       (window-height . 15)
+       (direction . bottom))))
 
 
 ;;; Help
