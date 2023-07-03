@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; -*-
+
 ;;; Set up straight and use-package
 
 (setq straight-use-package-by-default t)
@@ -66,6 +68,23 @@
 (set-face-attribute 'variable-pitch nil :family "Iosevka Etoile" :height 1.0 :weight 'light)
 
 (use-package diminish)
+
+
+;;; Window management
+
+(use-package transpose-frame)
+
+(defun make-display-buffer-matcher-function (major-modes)
+  (lambda (buffer-name action)
+    (with-current-buffer buffer-name (apply #'derived-mode-p major-modes))))
+
+(setq display-buffer-alist
+      `((,(make-display-buffer-matcher-function '(shell-mode))
+         (display-buffer-in-direction)
+         (window . root)
+         (window-height . 15)
+         (direction . bottom))))
+
 
 ;;; Help
 
