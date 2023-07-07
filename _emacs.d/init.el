@@ -89,11 +89,9 @@
   switch-to-buffer-obey-display-actions t
 
   display-buffer-alist
-    `((,(make-display-buffer-matcher-function '(shell-mode))
-       (display-buffer-reuse-mode-window display-buffer-in-direction)
-       (window . root)
-       (window-height . 15)
-       (direction . bottom))))
+    `((,(regexp-quote "*shell")		; can't detect this on buffer mode, because the `shell` command pops to the buffer before changing mode
+       (display-buffer-reuse-mode-window display-buffer-in-side-window)
+       (side . bottom))))
 
 
 ;;; Help
@@ -283,6 +281,12 @@
 (use-package ob-fsharp
   :demand t
   :after (org))
+
+
+;;;; C#
+
+(use-package csharp-mode
+  :mode "\\.cs\\'")
 
 
 ;;;; Markdown
