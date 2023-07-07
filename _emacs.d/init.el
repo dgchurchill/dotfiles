@@ -67,6 +67,12 @@
 (set-face-attribute 'fixed-pitch nil :family "Iosevka Slab" :height 1.0 :weight 'light)
 (set-face-attribute 'variable-pitch nil :family "Iosevka Etoile" :height 1.0 :weight 'light)
 
+;; something about Windows not treating "light" as a weight but as a separate font?
+(when (eq window-system 'w32)
+  (set-face-attribute 'default nil :font "Iosevka Slab Light-14")
+  (set-face-attribute 'fixed-pitch nil :font "Iosevka Slab Light-14")
+  (set-face-attribute 'variable-pitch nil :font "Iosevka Etoile Light-14"))
+
 (use-package diminish)
 
 
