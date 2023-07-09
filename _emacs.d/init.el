@@ -43,6 +43,7 @@
 
 ;;; General keybindings
 
+(repeat-mode)
 (global-set-key (kbd "C-x C-b") #'ibuffer)
 
 ;; Set up escape as a leader
@@ -54,7 +55,11 @@
 (global-set-key (kbd "<escape>") escape-map)
 (define-key escape-map (kbd "ESC") #'keyboard-escape-quit)
 (define-key escape-map (kbd "b k") #'kill-current-buffer)
-
+(define-key escape-map (kbd "w w") #'other-window) ; single shot
+(define-key escape-map (kbd "w o") #'other-window) ; for repeat-mode
+(define-key escape-map (kbd "w k") #'delete-window)
+(define-key escape-map (kbd "w f") #'delete-other-windows)
+(define-key escape-map (kbd "p") project-prefix-map)
 
 ;;; Themes and appearance
 
@@ -63,9 +68,9 @@
   :config
   (load-theme 'modus-operandi-tinted))
 
-(set-face-attribute 'default nil :family "Iosevka Slab" :height 140 :weight 'light)
-(set-face-attribute 'fixed-pitch nil :family "Iosevka Slab" :height 1.0 :weight 'light)
-(set-face-attribute 'variable-pitch nil :family "Iosevka Etoile" :height 1.0 :weight 'light)
+(set-face-attribute 'default nil :family "Iosevka Slab" :height 140)
+(set-face-attribute 'fixed-pitch nil :family "Iosevka Slab" :height 1.0)
+(set-face-attribute 'variable-pitch nil :family "Iosevka Etoile" :height 1.0)
 
 ;; something about Windows not treating "light" as a weight but as a separate font?
 (when (eq window-system 'w32)
@@ -89,7 +94,11 @@
   switch-to-buffer-obey-display-actions t
 
   display-buffer-alist
-    `((,(regexp-quote "*shell")		; can't detect this on buffer mode, because the `shell` command pops to the buffer before changing mode
+    `((,(regexp-quote "shell*")		; can't detect this on buffer mode, because the `shell` command pops to the buffer before changing mode
+       (display-buffer-reuse-mode-window display-buffer-in-side-window)
+       (mode . shell-mode)
+       (side . bottom))
+      (,(make-display-buffer-matcher-function '(compilation-mode))
        (display-buffer-reuse-mode-window display-buffer-in-side-window)
        (side . bottom))))
 
@@ -136,6 +145,7 @@
          ;; C-x bindings (ctl-x-map)
          ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
          ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+	 ("<escape> b b" . consult-buffer)
          ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
          ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
          ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
