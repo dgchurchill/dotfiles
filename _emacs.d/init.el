@@ -54,11 +54,15 @@
 (setq escape-map (make-sparse-keymap))
 (global-set-key (kbd "<escape>") escape-map)
 (define-key escape-map (kbd "ESC") #'keyboard-escape-quit)
+
 (define-key escape-map (kbd "b k") #'kill-current-buffer)
+
+(global-set-key (kbd "C-o") #'other-window)	   ; originally open-line, which seems a waste of an easy key
 (define-key escape-map (kbd "w w") #'other-window) ; single shot
 (define-key escape-map (kbd "w o") #'other-window) ; for repeat-mode
 (define-key escape-map (kbd "w k") #'delete-window)
 (define-key escape-map (kbd "w f") #'delete-other-windows)
+
 (define-key escape-map (kbd "p") project-prefix-map)
 
 ;;; Themes and appearance
@@ -128,6 +132,14 @@
 (use-package corfu
   :straight (corfu :files (:defaults "extensions/*.el"))
   :init
+  (defun corfu-enable-in-minibuffer ()
+  "Enable Corfu in the minibuffer if `completion-at-point' is bound."
+  (when (where-is-internal #'completion-at-point (list (current-local-map)))
+    (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
+                corfu-popupinfo-delay nil)
+    (corfu-mode 1)))
+  (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
+
   (global-corfu-mode)
   (corfu-popupinfo-mode))
 
