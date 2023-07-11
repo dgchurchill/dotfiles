@@ -65,6 +65,9 @@
 
 (define-key escape-map (kbd "p") project-prefix-map)
 
+;; temporary, because tab-always-indent complete doesn't seem work with Omnisharp
+(global-set-key (kbd "C-<tab>") #'completion-at-point)
+
 ;;; Themes and appearance
 
 (use-package modus-themes
@@ -282,8 +285,20 @@
 
 ;;; Progamming / text editing modes
 
-(use-package eglot)
+(use-package eglot
+  :bind ("C-." . eglot-code-actions))
 
+
+;;;; dotnet
+
+(cl-defmethod project-root ((project (head dotnet)))
+  (nth 1 project))
+
+(defun project-try-dotnet (dir)
+  (when (file-expand-wildcards (file-name-concat dir "*.csproj"))
+    (list 'dotnet dir)))
+
+;; (add-to-list 'project-find-functions #'project-try-dotnet)
 
 ;;;; F#
 
