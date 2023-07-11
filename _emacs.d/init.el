@@ -286,7 +286,8 @@
 ;;; Progamming / text editing modes
 
 (use-package eglot
-  :bind ("C-." . eglot-code-actions))
+  :bind (:map eglot-mode-map
+         ("C-." . eglot-code-actions)))
 
 
 ;;;; dotnet
