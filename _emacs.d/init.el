@@ -147,6 +147,11 @@
   (corfu-popupinfo-mode))
 
 (use-package consult
+  :init
+  (defun consult-buffer-force ()
+    (interactive)
+    (let ((switch-to-buffer-obey-display-actions nil))
+      (consult-buffer)))
   :bind (;; C-c bindings (mode-specific-map)
 	 ("C-c M-x" . consult-mode-command)
          ("C-c h" . consult-history)
@@ -157,7 +162,9 @@
          ;; C-x bindings (ctl-x-map)
          ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
          ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+         ("C-x B" . consult-buffer-force)
 	 ("<escape> b b" . consult-buffer)
+	 ("<escape> b B" . consult-buffer-force)
          ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
          ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
          ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
