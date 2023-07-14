@@ -45,6 +45,7 @@
 
 (repeat-mode)
 (global-set-key (kbd "C-x C-b") #'ibuffer)
+(global-set-key (kbd "M-u") #'universal-argument)  ; originally upcase-word
 
 ;; Set up escape as a leader
 ;;
@@ -70,14 +71,16 @@
 
 ;;; Themes and appearance
 
-(use-package modus-themes
-  :demand t
-  :config
-  (load-theme 'modus-operandi-tinted))
-
 (set-face-attribute 'default nil :family "Iosevka Slab" :height 140)
 (set-face-attribute 'fixed-pitch nil :family "Iosevka Slab" :height 1.0)
 (set-face-attribute 'variable-pitch nil :family "Iosevka Etoile" :height 1.0)
+
+(use-package modus-themes
+  :demand t
+  :config
+  (load-theme 'modus-operandi-tinted)
+  (set-face-attribute 'mode-line nil :height 0.9)
+  (set-face-attribute 'mode-line-inactive nil :height 0.9))
 
 (when (eq window-system 'w32)
   (set-fontset-font t 'emoji "Segoe UI Emoji")
