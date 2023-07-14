@@ -10,6 +10,7 @@
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(isearch-lazy-count t)
+ '(ispell-program-name "hunspell")
  '(menu-bar-mode nil)
  '(modus-themes-headings
    '((0 variable-pitch 2.0)

@@ -57,7 +57,7 @@
 
 (define-key escape-map (kbd "b k") #'kill-current-buffer)
 
-(global-set-key (kbd "C-o") #'other-window)	   ; originally open-line, which seems a waste of an easy key
+(global-set-key (kbd "C-o") #'other-window)	   ; originally open-line, which seems a waste of an easy key -- this has problems for xref etc though that use it as open
 (define-key escape-map (kbd "w w") #'other-window) ; single shot
 (define-key escape-map (kbd "w o") #'other-window) ; for repeat-mode
 (define-key escape-map (kbd "w k") #'delete-window)
@@ -80,7 +80,8 @@
 (set-face-attribute 'variable-pitch nil :family "Iosevka Etoile" :height 1.0)
 
 (when (eq window-system 'w32)
-  (set-fontset-font t 'emoji "Segoe UI Emoji"))
+  (set-fontset-font t 'emoji "Segoe UI Emoji")
+  (set-face-attribute 'default nil :height 130))
 
 (use-package diminish)
 
@@ -307,6 +308,13 @@
     (list 'dotnet dir)))
 
 ;; (add-to-list 'project-find-functions #'project-try-dotnet)
+
+(defun dgc/dotnet-watch-test ()
+  (interactive)
+  (let ((shell-command-buffer-name-async "*dotnet test shell*"))
+    (async-shell-command "dotnet watch test --filter \"Category!=Integration\"" nil nil)))
+(define-key escape-map (kbd "d t") #'dgc/dotnet-watch-test)
+
 
 ;;;; F#
 
