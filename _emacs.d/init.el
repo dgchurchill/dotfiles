@@ -77,6 +77,23 @@
 
 (use-package modus-themes
   :demand t
+  :custom
+  (modus-themes-headings
+   '((0 variable-pitch light 1.9)
+     (1 variable-pitch light 1.8)
+     (2 variable-pitch regular 1.7)
+     (3 variable-pitch regular 1.6)
+     (4 variable-pitch regular 1.5)
+     (5 variable-pitch 1.4) ; absence of weight means `bold'
+     (6 variable-pitch 1.3)
+     (7 variable-pitch 1.2)
+     (t variable-pitch 1.1)))
+  (modus-themes-mixed-fonts t)
+  (modus-themes-variable-pitch-ui t)
+  (modus-themes-common-palette-overrides
+   '((bg-mode-line-active bg-yellow-intense)
+     (fg-mode-line-active fg-main)
+     (border-mode-line-active yellow-intense)))
   :config
   (load-theme 'modus-operandi-tinted)
   (set-face-attribute 'mode-line nil :height 0.9)
