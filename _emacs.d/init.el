@@ -58,7 +58,7 @@
 
 (define-key escape-map (kbd "b k") #'kill-current-buffer)
 
-(global-set-key (kbd "C-o") #'other-window)	   ; originally open-line, which seems a waste of an easy key -- this has problems for xref etc though that use it as open
+(global-set-key (kbd "M-o") #'other-window)
 (define-key escape-map (kbd "w w") #'other-window) ; single shot
 (define-key escape-map (kbd "w o") #'other-window) ; for repeat-mode
 (define-key escape-map (kbd "w k") #'delete-window)

@@ -12,6 +12,7 @@
  '(isearch-lazy-count t)
  '(ispell-program-name "hunspell")
  '(menu-bar-mode nil)
+ '(org-babel-load-languages '((emacs-lisp . t) (shell . t)))
  '(scroll-conservatively 10000)
  '(set-mark-command-repeat-pop t)
  '(straight-vc-git-default-clone-depth 1)
