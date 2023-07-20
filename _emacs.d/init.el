@@ -91,9 +91,10 @@
   (modus-themes-mixed-fonts t)
   (modus-themes-variable-pitch-ui t)
   (modus-themes-common-palette-overrides
-   '((bg-mode-line-active bg-yellow-intense)
-     (fg-mode-line-active fg-main)
-     (border-mode-line-active yellow-intense)))
+   '((fringe unspecified)
+     (bg-mode-line-active bg-yellow-intense)
+     (border-mode-line-active bg-yellow-intense)
+     (border-mode-line-inactive bg-mode-line-inactive)))
   :config
   (load-theme 'modus-operandi-tinted)
   (set-face-attribute 'mode-line nil :height 0.9)
