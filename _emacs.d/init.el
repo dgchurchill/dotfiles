@@ -183,6 +183,7 @@
          ([remap Info-search] . consult-info)
          ;; C-x bindings (ctl-x-map)
          ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
+         ("M-j" . consult-buffer)                  ;; orig. default-indent-new-line
          ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
          ("C-x B" . consult-buffer-force)
 	 ("<escape> b b" . consult-buffer)
