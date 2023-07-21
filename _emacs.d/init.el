@@ -119,10 +119,10 @@
   switch-to-buffer-in-dedicated-window 'pop
   switch-to-buffer-obey-display-actions t
 
+  ;; note: can't detect shell buffers by mode because the `shell` command pops to the buffer before changing mode
   display-buffer-alist
-    `((,(regexp-quote "shell*")		; can't detect this on buffer mode, because the `shell` command pops to the buffer before changing mode
-       (display-buffer-reuse-mode-window display-buffer-in-side-window)
-       (mode . shell-mode)
+    `((,(regexp-quote "-shell*")		; project shells
+       (display-buffer-in-side-window)
        (side . bottom))
       (,(make-display-buffer-matcher-function '(compilation-mode))
        (display-buffer-reuse-mode-window display-buffer-in-side-window)
@@ -296,6 +296,10 @@
 		     te (org-duration-from-minutes (+ (* 60 h) m)))
     ))
 
+(defun dgc/org-table-copy-as-csv ()
+  "Copy the org table at point to the kill ring in CSV format."
+  (interactive)
+  (kill-new (orgtbl-to-csv (org-table-to-lisp) ())))
 
 ;;; Magit
 
