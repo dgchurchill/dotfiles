@@ -75,6 +75,10 @@
 (set-face-attribute 'fixed-pitch nil :family "Iosevka Slab" :height 1.0)
 (set-face-attribute 'variable-pitch nil :family "Iosevka Etoile" :height 1.0)
 
+(when (eq window-system 'w32)
+  (set-fontset-font t 'emoji "Segoe UI Emoji")
+  (set-face-attribute 'default nil :height 120))
+
 (use-package modus-themes
   :demand t
   :custom
@@ -99,10 +103,6 @@
   (load-theme 'modus-operandi-tinted)
   (set-face-attribute 'mode-line nil :height 0.9)
   (set-face-attribute 'mode-line-inactive nil :height 0.9))
-
-(when (eq window-system 'w32)
-  (set-fontset-font t 'emoji "Segoe UI Emoji")
-  (set-face-attribute 'default nil :height 130))
 
 (use-package diminish)
 
@@ -303,7 +303,9 @@
 
 ;;; Magit
 
-(use-package magit)
+(use-package magit
+  :demand t
+  :after (project))  ; make sure Magit gets a chance to add its option to project's command list
 
 (defun dgc/magit-browse-remote ()
     (interactive)
