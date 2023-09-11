@@ -13,10 +13,12 @@
  '(ispell-program-name "hunspell")
  '(menu-bar-mode nil)
  '(org-babel-load-languages '((emacs-lisp . t) (shell . t)))
+ '(pixel-scroll-precision-mode t)
  '(scroll-conservatively 10000)
  '(set-mark-command-repeat-pop t)
  '(straight-vc-git-default-clone-depth 1)
  '(tab-always-indent 'complete)
+ '(tab-width 4)
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

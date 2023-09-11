@@ -39,7 +39,12 @@
   (exec-path-from-shell-initialize))
 
 (when (eq window-system 'w32)
-  (setq explicit-shell-file-name "pwsh"))
+  (setq explicit-shell-file-name "pwsh")
+
+  (setq find-program "C:/msys64/usr/bin/find.exe")
+  (setq grep-find-command nil)
+  (setq grep-host-defaults-alist nil)
+  (grep-compute-defaults))
 
 ;;; General keybindings
 
@@ -305,7 +310,9 @@
 
 (use-package magit
   :demand t
-  :after (project))  ; make sure Magit gets a chance to add its option to project's command list
+  :after (project)  ; make sure Magit gets a chance to add its option to project's command list
+  :config
+  (require 'magit-extras)) 
 
 (defun dgc/magit-browse-remote ()
     (interactive)
@@ -325,6 +332,11 @@
   :bind (:map eglot-mode-map
          ("C-." . eglot-code-actions)))
 
+(use-package tree-sitter)
+(use-package tree-sitter-langs)
+(use-package tree-sitter-indent)
+
+(use-package json-mode)
 
 ;;;; dotnet
 
@@ -364,7 +376,8 @@
 ;;;; C#
 
 (use-package csharp-mode
-  :mode "\\.cs\\'")
+  :init
+  (add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-tree-sitter-mode)))
 
 
 ;;;; Markdown
