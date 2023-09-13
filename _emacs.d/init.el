@@ -84,10 +84,35 @@
   (set-fontset-font t 'emoji "Segoe UI Emoji")
   (set-face-attribute 'default nil :height 120))
 
-(use-package modus-themes
+;; (use-package modus-themes
+;;   :demand t
+;;   :custom
+;;   (modus-themes-headings
+;;    '((0 variable-pitch light 1.9)
+;;      (1 variable-pitch light 1.8)
+;;      (2 variable-pitch regular 1.7)
+;;      (3 variable-pitch regular 1.6)
+;;      (4 variable-pitch regular 1.5)
+;;      (5 variable-pitch 1.4) ; absence of weight means `bold'
+;;      (6 variable-pitch 1.3)
+;;      (7 variable-pitch 1.2)
+;;      (t variable-pitch 1.1)))
+;;   (modus-themes-mixed-fonts t)
+;;   (modus-themes-variable-pitch-ui t)
+;;   (modus-themes-common-palette-overrides
+;;    '((fringe unspecified)
+;;      (bg-mode-line-active bg-yellow-intense)
+;;      (border-mode-line-active bg-yellow-intense)
+;;      (border-mode-line-inactive bg-mode-line-inactive)))
+;;   :config
+;;   (load-theme 'modus-operandi-tinted)
+;;   (set-face-attribute 'mode-line nil :height 0.9)
+;;   (set-face-attribute 'mode-line-inactive nil :height 0.9))
+
+(use-package ef-themes
   :demand t
   :custom
-  (modus-themes-headings
+  (ef-themes-headings
    '((0 variable-pitch light 1.9)
      (1 variable-pitch light 1.8)
      (2 variable-pitch regular 1.7)
@@ -97,15 +122,10 @@
      (6 variable-pitch 1.3)
      (7 variable-pitch 1.2)
      (t variable-pitch 1.1)))
-  (modus-themes-mixed-fonts t)
-  (modus-themes-variable-pitch-ui t)
-  (modus-themes-common-palette-overrides
-   '((fringe unspecified)
-     (bg-mode-line-active bg-yellow-intense)
-     (border-mode-line-active bg-yellow-intense)
-     (border-mode-line-inactive bg-mode-line-inactive)))
+  (ef-themes-mixed-fonts t)
+  (ef-themes-variable-pitch-ui t)
   :config
-  (load-theme 'modus-operandi-tinted)
+  (load-theme 'ef-duo-light)
   (set-face-attribute 'mode-line nil :height 0.9)
   (set-face-attribute 'mode-line-inactive nil :height 0.9))
 
@@ -336,7 +356,9 @@
 (use-package tree-sitter-langs)
 (use-package tree-sitter-indent)
 
+;;;; Simple modes
 (use-package json-mode)
+(use-package terraform-mode)
 
 ;;;; dotnet
 
