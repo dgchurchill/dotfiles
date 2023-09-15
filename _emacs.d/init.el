@@ -420,6 +420,15 @@
   :custom
   (beancount-use-ido nil))
 
+(rx-define dgc/date (seq (= 4 digit) "-" (= 2 digit) "-" (= 2 digit)))
+(rx-define dgc/quoted (seq "\"" (+ (or "\\\"" (not "\""))) "\""))
+
+(defun dgc/beancount-find-trans (term)
+  "Find all matching transactions"
+  (interactive "MPattern: ")
+  (let ((regex (rx bol dgc/date (+ blank) "*" (+ blank) (* nonl) (literal term) (* nonl) "\n"
+                   (+ (seq (+ blank) (* nonl) "\n")))))
+    (occur regex)))
 
 ;;; environment specific settings
 
