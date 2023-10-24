@@ -261,6 +261,15 @@
   (recentf-mode))
 
 
+;;; Editing
+
+(use-package multiple-cursors
+  :bind (
+	     ("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)))
+
+
 ;;; Org mode
 
 (use-package org
@@ -429,6 +438,22 @@
   (let ((regex (rx bol dgc/date (+ blank) "*" (+ blank) (* nonl) (literal term) (* nonl) "\n"
                    (+ (seq (+ blank) (* nonl) "\n")))))
     (occur regex)))
+
+;;;; Go
+
+(use-package go-mode
+  :init
+  ;; (defun project-find-go-module (dir)
+  ;;   (when-let ((root (locate-dominating-file dir "go.mod")))
+  ;;     (cons 'go-module root)))
+
+  ;; (cl-defmethod project-root ((project (head go-module)))
+  ;;   (cdr project))
+  
+  ;; (add-hook 'project-find-functions #'project-find-go-module)
+
+  (add-hook 'go-mode-hook #'eglot-ensure))
+
 
 ;;; environment specific settings
 
