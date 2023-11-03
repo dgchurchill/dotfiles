@@ -51,6 +51,8 @@
 (repeat-mode)
 (global-set-key (kbd "C-x C-b") #'ibuffer)
 (global-set-key (kbd "M-u") #'universal-argument)  ; originally upcase-word
+(global-set-key (kbd "C-z") #'undo) ; originally suspend-frame
+
 
 ;; Set up escape as a leader
 ;;
