@@ -25,7 +25,7 @@
 
 ;;; Core settings
 
-(setq custom-file "~/.emacs.d/custom.el")
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 
 (server-start)
@@ -461,6 +461,6 @@
 
 ;;; environment specific settings
 
-(let ((local-config "~/.emacs.d/local.el"))
+(let ((local-config (expand-file-name "local.el" user-emacs-directory)))
   (when (file-exists-p local-config)
       (load local-config)))
