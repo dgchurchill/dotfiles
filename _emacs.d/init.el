@@ -370,7 +370,7 @@
 ;;;; Simple modes
 (use-package json-mode)
 (use-package terraform-mode)
-(use-package olivetti-mode)
+(use-package olivetti)
 
 
 ;;;; dotnet
