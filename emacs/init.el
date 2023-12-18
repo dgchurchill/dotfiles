@@ -369,9 +369,14 @@
 
 ;;;; Simple modes
 (use-package json-mode)
-(use-package terraform-mode)
 (use-package olivetti)
 
+(use-package terraform-mode
+  :custom
+  (terraform-format-on-save t))
+
+(use-package lsp-mode
+  :hook ((terraform-mode . lsp-deferred)))
 
 ;;;; dotnet
 
