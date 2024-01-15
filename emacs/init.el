@@ -34,11 +34,11 @@
 (minibuffer-depth-indicate-mode)
 
 (use-package exec-path-from-shell
-  :if (memq window-system '(mac ns))
+  :if (eq system-type 'darwin)
   :init
   (exec-path-from-shell-initialize))
 
-(when (eq window-system 'w32)
+(when (eq system-type 'windows-nt)
   (setq explicit-shell-file-name "pwsh")
 
   (setq find-program "C:/msys64/usr/bin/find.exe")
@@ -82,9 +82,8 @@
 (set-face-attribute 'fixed-pitch nil :family "Iosevka Slab" :height 1.0)
 (set-face-attribute 'variable-pitch nil :family "Iosevka Etoile" :height 1.0)
 
-(when (eq window-system 'w32)
-  (set-fontset-font t 'emoji "Segoe UI Emoji")
-  (set-face-attribute 'default nil :height 120))
+(when (eq system-type 'windows-nt)
+  (set-fontset-font t 'emoji "Segoe UI Emoji"))
 
 ;; (use-package modus-themes
 ;;   :demand t
