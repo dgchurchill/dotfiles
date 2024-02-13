@@ -133,6 +133,13 @@
 (use-package diminish)
 
 
+;;; Buffer management
+
+(use-package ibuffer-vc
+  :demand t
+  :after ibuffer)
+
+
 ;;; Window management
 
 (use-package transpose-frame)
@@ -152,6 +159,12 @@
        (side . bottom))
       (,(make-display-buffer-matcher-function '(compilation-mode))
        (display-buffer-reuse-mode-window display-buffer-in-side-window)
+       (side . bottom))
+      (,(regexp-quote "*xref*")
+       (display-buffer-in-side-window)
+       (side . bottom))
+      (,(regexp-quote "*eldoc*")
+       (display-buffer-in-side-window)
        (side . bottom))))
 
 
@@ -184,11 +197,11 @@
   :straight (corfu :files (:defaults "extensions/*.el"))
   :init
   (defun corfu-enable-in-minibuffer ()
-  "Enable Corfu in the minibuffer if `completion-at-point' is bound."
-  (when (where-is-internal #'completion-at-point (list (current-local-map)))
-    (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
-                corfu-popupinfo-delay nil)
-    (corfu-mode 1)))
+    "Enable Corfu in the minibuffer if `completion-at-point' is bound."
+    (when (where-is-internal #'completion-at-point (list (current-local-map)))
+      (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
+                  corfu-popupinfo-delay nil)
+      (corfu-mode 1)))
   (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
 
   (global-corfu-mode)
@@ -274,10 +287,13 @@
 ;;; Org mode
 
 (use-package org
+  :demand t   ;; front-load the startup time because it's almost always used
   :init
   (require 'org-protocol)
   (add-hook 'org-mode-hook 'variable-pitch-mode)
-  (add-hook 'org-mode-hook 'visual-line-mode))
+  (add-hook 'org-mode-hook 'visual-line-mode)
+  :config
+  (org-load-modules-maybe))  ;; module loading is normally done on the first use of org-mode, but can take some time
 
 (defun dgc/org-silent-clock-in ()
   "Clock in without affecting the currently running clock"
@@ -344,6 +360,8 @@
   :config
   (require 'magit-extras)) 
 
+
+
 (defun dgc/magit-browse-remote ()
     (interactive)
   (browse-url (magit-get "remote" (magit-get-remote) "url")))
@@ -358,6 +376,9 @@
 
 ;;; Progamming / text editing modes
 
+(use-package project
+  :demand t)   ;; force load to allow Magit to load at startup time because it's used in most sessions
+
 (use-package eglot
   :bind (:map eglot-mode-map
          ("C-." . eglot-code-actions)))
@@ -366,8 +387,16 @@
 (use-package tree-sitter-langs)
 (use-package tree-sitter-indent)
 
+(use-package yasnippet
+  :init (yas-global-mode))
+
+;; (use-package yasnippet-snippets
+;;   :demand t
+;;   :after (yasnippet))
+
 ;;;; Simple modes
 (use-package json-mode)
+(use-package yaml-mode)
 (use-package olivetti)
 
 (use-package terraform-mode
@@ -383,10 +412,22 @@
   (nth 1 project))
 
 (defun project-try-dotnet (dir)
-  (when (file-expand-wildcards (file-name-concat dir "*.csproj"))
-    (list 'dotnet dir)))
+  (let* ((marker-re "\\`.*\\.csproj\\'")
+         (root
+          (locate-dominating-file
+           dir
+           (lambda (d)
+             (condition-case nil
+                 (directory-files d nil marker-re t)
+               (file-missing nil))))))
+  (when root (file-expand-wildcards (file-name-concat dir "*.csproj"))
+    (list 'dotnet root))))
 
-;; (add-to-list 'project-find-functions #'project-try-dotnet)
+(use-package emacs
+  :demand t
+  :after (project)
+  :config
+  (add-to-list 'project-find-functions #'project-try-dotnet))
 
 (defun dgc/dotnet-watch-test ()
   (interactive)
@@ -414,9 +455,9 @@
 
 ;;;; C#
 
-(use-package csharp-mode
-  :init
-  (add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-tree-sitter-mode)))
+;; (use-package csharp-mode
+;;   :init
+;;   (add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-tree-sitter-mode)))
 
 
 ;;;; Markdown
@@ -468,3 +509,4 @@
 (let ((local-config (expand-file-name "local.el" user-emacs-directory)))
   (when (file-exists-p local-config)
       (load local-config)))
+(put 'upcase-region 'disabled nil)
