@@ -357,6 +357,8 @@
 (use-package magit
   :demand t
   :after (project)  ; make sure Magit gets a chance to add its option to project's command list
+  :custom
+  (magit-define-global-key-bindings 'recommended)  ; for some reason setting this in custom.el doesn't work
   :config
   (require 'magit-extras)) 
 

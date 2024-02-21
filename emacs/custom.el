@@ -17,7 +17,6 @@
  '(inhibit-startup-screen t)
  '(isearch-lazy-count t)
  '(ispell-program-name "hunspell")
- '(magit-define-global-key-bindings 'recommended)
  '(menu-bar-mode nil)
  '(next-error-recenter '(4))
  '(org-babel-load-languages '((emacs-lisp . t) (shell . t)))
