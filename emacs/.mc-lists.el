@@ -3,7 +3,10 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        c-electric-semi&comma
         cycle-spacing
+        org-end-of-line
+        org-self-insert-command
         ))
 
 (setq mc/cmds-to-run-once
