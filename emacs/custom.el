@@ -26,6 +26,7 @@
  '(straight-vc-git-default-clone-depth 1)
  '(tab-always-indent 'complete)
  '(tab-width 4)
+ '(text-mode-hook '(turn-on-flyspell text-mode-hook-identify))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
