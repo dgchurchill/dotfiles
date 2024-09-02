@@ -5,10 +5,13 @@
       '(
         c-electric-semi&comma
         cycle-spacing
+        forward-sentence
+        indent-for-tab-command
         org-end-of-line
         org-self-insert-command
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        pixel-scroll-precision
         ))

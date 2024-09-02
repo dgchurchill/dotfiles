@@ -297,6 +297,8 @@
   :config
   (org-load-modules-maybe))  ;; module loading is normally done on the first use of org-mode, but can take some time
 
+(use-package org-roam)
+
 (defun dgc/org-silent-clock-in ()
   "Clock in without affecting the currently running clock"
   (interactive)
@@ -373,10 +375,13 @@
 
 ;;; Utilities
 
-(use-package deadgrep
-  :bind (:map escape-map
-         ("g g" . deadgrep))
-)
+;; (use-package deadgrep
+;;   :bind (:map escape-map
+;;          ("g g" . deadgrep))
+;; )
+
+(use-package rg
+  :bind ("C-c s" . rg-menu))
 
 ;;; Progamming / text editing modes
 
@@ -506,6 +511,16 @@
   ;; (add-hook 'project-find-functions #'project-find-go-module)
 
   (add-hook 'go-mode-hook #'eglot-ensure))
+
+
+;;; LLMs
+(use-package gptel
+  :custom
+  (gptel-model "llama3.1")
+  (gptel-backend (gptel-make-ollama "Ollama"
+                   :host "localhost:11434"
+                   :stream t
+                   :models '("llama3.1" "mistral-nemo"))))
 
 
 ;;; environment specific settings
