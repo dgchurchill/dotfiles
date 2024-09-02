@@ -185,7 +185,9 @@
 (use-package orderless
   :custom
   (completion-styles '(orderless basic))
-  (completion-category-overrides '((file (styles basic partial-completion)))))
+  (completion-category-overrides
+   '((file (styles basic partial-completion))
+     (project-file (styles))))) ;; override the default of `substring` so that matches that orderless would show aren't suppresssed by `substring` matching first
 
 (use-package marginalia
   :bind (:map minibuffer-local-map
