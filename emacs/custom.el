@@ -7,6 +7,7 @@
  '(comint-process-echoes t)
  '(cursor-type 'bar)
  '(custom-safe-themes t)
+ '(delete-by-moving-to-trash t)
  '(delete-selection-mode t)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(eglot-connect-timeout 60)
@@ -27,10 +28,15 @@
  '(tab-always-indent 'complete)
  '(tab-width 4)
  '(text-mode-hook '(turn-on-flyspell text-mode-hook-identify))
- '(tool-bar-mode nil))
+ '(tool-bar-mode nil)
+ '(window-divider-default-bottom-width 2)
+ '(window-divider-default-places t)
+ '(window-divider-default-right-width 2)
+ '(window-divider-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(window-divider-first-pixel ((t (:foreground "#baafba"))))
+ '(window-divider-last-pixel ((t (:foreground "#baafba")))))

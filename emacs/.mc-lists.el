@@ -5,6 +5,7 @@
       '(
         c-electric-semi&comma
         cycle-spacing
+        delete-indentation
         forward-sentence
         indent-for-tab-command
         org-end-of-line
