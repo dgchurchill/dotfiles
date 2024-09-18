@@ -412,9 +412,6 @@
   :custom
   (terraform-format-on-save t))
 
-(use-package lsp-mode
-  :hook ((terraform-mode . lsp-deferred)))
-
 ;;;; dotnet
 
 (cl-defmethod project-root ((project (head dotnet)))
