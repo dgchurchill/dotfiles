@@ -10,6 +10,7 @@
  '(delete-by-moving-to-trash t)
  '(delete-selection-mode t)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
+ '(eglot-autoshutdown t)
  '(eglot-connect-timeout 60)
  '(eldoc-echo-area-prefer-doc-buffer t)
  '(eldoc-echo-area-use-multiline-p nil)

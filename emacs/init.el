@@ -165,7 +165,7 @@
        (side . bottom))
       (,(regexp-quote "*eldoc*")
        (display-buffer-in-side-window)
-       (side . bottom))))
+       (side . right))))
 
 
 ;;; Help
@@ -514,10 +514,12 @@
 (use-package gptel
   :custom
   (gptel-model "llama3.1")
-  (gptel-backend (gptel-make-ollama "Ollama"
-                   :host "localhost:11434"
-                   :stream t
-                   :models '("llama3.1" "mistral-nemo"))))
+  :config
+  ;; setting gptel-backend in :config instead of :custom to avoid recursive load error
+  (setq gptel-backend (gptel-make-ollama "Ollama"
+                        :host "localhost:11434"
+                        :stream t
+                        :models '("llama3.1" "mistral-nemo"))))
 
 
 ;;; environment specific settings
