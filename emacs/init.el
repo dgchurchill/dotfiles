@@ -524,5 +524,8 @@
 
 (let ((local-config (expand-file-name "local.el" user-emacs-directory)))
   (when (file-exists-p local-config)
-      (load local-config)))
+    (load local-config)))
+
+;;; automatically added stuff
 (put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
