@@ -133,6 +133,14 @@
 (use-package diminish)
 
 
+;;; Utilities
+
+(use-package explain-pause-mode
+  :straight (explain-pause-mode :type git :host github :repo "lastquestion/explain-pause-mode")
+  :config
+  (explain-pause-mode))
+
+
 ;;; Buffer management
 
 (use-package ibuffer-vc
