@@ -175,6 +175,11 @@
        (display-buffer-in-side-window)
        (side . right))))
 
+(defun eldoc-turn-on-visual-line-mode ()
+  (when (string-prefix-p "*eldoc" (buffer-name))
+    (visual-line-mode)))
+(add-hook 'special-mode-hook 'eldoc-turn-on-visual-line-mode)
+
 
 ;;; Help
 
