@@ -1,5 +1,9 @@
 ;;; -*- lexical-binding: t; -*-
 
+;;; Notes for installing
+;; Windows
+;; In MSYS, `pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-libgccjit` to install dependencies for native compilation
+
 ;;; Set up straight and use-package
 
 (setq straight-use-package-by-default t)
@@ -45,6 +49,9 @@
   (setq grep-find-command nil)
   (setq grep-host-defaults-alist nil)
   (grep-compute-defaults))
+
+(push '(scroll-bar-width . :never) frameset-filter-alist)
+(push '(scroll-bar-height . :never) frameset-filter-alist)
 
 ;;; General keybindings
 
