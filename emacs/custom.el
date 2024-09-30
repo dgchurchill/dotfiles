@@ -29,6 +29,7 @@
  '(tab-always-indent 'complete)
  '(tab-width 4)
  '(text-mode-hook '(turn-on-flyspell text-mode-hook-identify))
+ '(text-scale-mode-step 1.1)
  '(tool-bar-mode nil)
  '(window-divider-default-bottom-width 2)
  '(window-divider-default-places t)

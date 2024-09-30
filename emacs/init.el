@@ -37,6 +37,11 @@
 (setq enable-recursive-minibuffers t)
 (minibuffer-depth-indicate-mode)
 
+(use-package gcmh
+  :diminish
+  :init
+  (gcmh-mode))
+
 (use-package exec-path-from-shell
   :if (eq system-type 'darwin)
   :init
@@ -144,7 +149,7 @@
 
 (use-package explain-pause-mode
   :straight (explain-pause-mode :type git :host github :repo "lastquestion/explain-pause-mode")
-  :config
+  :init
   (explain-pause-mode))
 
 
@@ -183,7 +188,7 @@
        (side . right))))
 
 (defun eldoc-turn-on-visual-line-mode ()
-  (when (string-prefix-p "*eldoc" (buffer-name))
+  (when (string-match-p " ?\\*eldoc" (buffer-name))
     (visual-line-mode)))
 (add-hook 'special-mode-hook 'eldoc-turn-on-visual-line-mode)
 
