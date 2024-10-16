@@ -3,9 +3,12 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        c-electric-brace
         c-electric-semi&comma
+        c-indent-line-or-region
         cycle-spacing
         delete-indentation
+        electric-newline-and-maybe-indent
         forward-sentence
         indent-for-tab-command
         org-end-of-line

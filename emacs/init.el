@@ -8,6 +8,7 @@
 
 (setq straight-use-package-by-default t)
 (setq straight-use-symlinks t) ; use symlinks, even on Windows (requires Developer Mode to be turned on in Windows to avoid UAC prompts)
+(setq straight-use-version-specific-build-dir t)
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -442,17 +443,20 @@
 (cl-defmethod project-root ((project (head dotnet)))
   (nth 1 project))
 
+(defun dgc/locate-dominating-file-regexp (dir match)
+  (locate-dominating-file
+   dir
+   (lambda (d)
+     (condition-case nil
+         (directory-files d nil match t)
+       (file-missing nil)))))
+
 (defun project-try-dotnet (dir)
-  (let* ((marker-re "\\`.*\\.csproj\\'")
-         (root
-          (locate-dominating-file
-           dir
-           (lambda (d)
-             (condition-case nil
-                 (directory-files d nil marker-re t)
-               (file-missing nil))))))
-  (when root (file-expand-wildcards (file-name-concat dir "*.csproj"))
-    (list 'dotnet root))))
+  (let* ((sln-root (dgc/locate-dominating-file-regexp dir "\\`.*\\.sln\\'"))
+        (csproj-root (dgc/locate-dominating-file-regexp dir "\\`.*\\.csproj\\'"))
+        (root (or sln-root csproj-root))) ; prefer the solution is there is one
+    (when root
+      (list 'dotnet root))))
 
 (use-package emacs
   :demand t
