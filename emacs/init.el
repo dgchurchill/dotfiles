@@ -38,10 +38,10 @@
 (setq enable-recursive-minibuffers t)
 (minibuffer-depth-indicate-mode)
 
-(use-package gcmh
-  :diminish
-  :init
-  (gcmh-mode))
+;; (use-package gcmh
+;;   :diminish
+;;   :init
+;;   (gcmh-mode))
 
 (use-package exec-path-from-shell
   :if (eq system-type 'darwin)
@@ -149,9 +149,9 @@
 ;;; Utilities
 
 (use-package explain-pause-mode
-  :straight (explain-pause-mode :type git :host github :repo "lastquestion/explain-pause-mode")
-  :init
-  (explain-pause-mode))
+  :straight (explain-pause-mode :type git :host github :repo "lastquestion/explain-pause-mode"))
+  ;; :init
+  ;; (explain-pause-mode))
 
 
 ;;; Buffer management
@@ -429,6 +429,8 @@
 ;;   :demand t
 ;;   :after (yasnippet))
 
+(use-package dape)
+
 ;;;; Simple modes
 (use-package json-mode)
 (use-package yaml-mode)
@@ -443,20 +445,25 @@
 (cl-defmethod project-root ((project (head dotnet)))
   (nth 1 project))
 
+(cl-defmethod project-name ((project (head dotnet)))
+  (nth 2 project))
+
 (defun dgc/locate-dominating-file-regexp (dir match)
-  (locate-dominating-file
-   dir
-   (lambda (d)
-     (condition-case nil
-         (directory-files d nil match t)
-       (file-missing nil)))))
+  (let ((dominating-dir (locate-dominating-file
+               dir
+               (lambda (d)
+                 (condition-case nil
+                     (directory-files d nil match t)
+                   (file-missing nil))))))
+    (when dominating-dir
+      (car (directory-files dominating-dir t match nil 1)))))
 
 (defun project-try-dotnet (dir)
-  (let* ((sln-root (dgc/locate-dominating-file-regexp dir "\\`.*\\.sln\\'"))
-        (csproj-root (dgc/locate-dominating-file-regexp dir "\\`.*\\.csproj\\'"))
-        (root (or sln-root csproj-root))) ; prefer the solution is there is one
-    (when root
-      (list 'dotnet root))))
+  (let* ((sln-file (dgc/locate-dominating-file-regexp dir "\\`.*\\.sln\\'"))
+        (csproj-file (dgc/locate-dominating-file-regexp dir "\\`.*\\.csproj\\'"))
+        (file (or sln-file csproj-file))) ; prefer the solution is there is one
+    (when file
+      (list 'dotnet (file-name-directory file) (file-name-base file)))))
 
 (use-package emacs
   :demand t
