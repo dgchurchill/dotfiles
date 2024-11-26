@@ -1,3 +1,4 @@
+
 ;;; -*- lexical-binding: t; -*-
 
 ;;; Notes for installing
@@ -42,6 +43,10 @@
 ;;   :diminish
 ;;   :init
 ;;   (gcmh-mode))
+
+;; increase amount read from a pipe in one go; supposed to improve performance of subprocess communication (e.g. lsp servers)
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+
 
 (use-package exec-path-from-shell
   :if (eq system-type 'darwin)
@@ -416,7 +421,12 @@
 
 (use-package eglot
   :bind (:map eglot-mode-map
-         ("C-." . eglot-code-actions)))
+              ("C-." . eglot-code-actions)))
+
+(use-package eglot-booster
+  :straight (:type git :host github :repo "jdtsmith/eglot-booster")
+  :after eglot
+  :init (eglot-booster-mode))
 
 (use-package tree-sitter)
 (use-package tree-sitter-langs)
@@ -429,6 +439,8 @@
 ;;   :demand t
 ;;   :after (yasnippet))
 
+;; M-x dape, "netcoredbg - dotnet run"
+;; "netcoredbg :cwd "c:/Users/Dave/source/flipgroup/Chapi.Customer.API/src/Chapi.Customer.API/bin/Debug/net8.0" :program "Customer.API.dll""
 (use-package dape)
 
 ;;;; Simple modes
