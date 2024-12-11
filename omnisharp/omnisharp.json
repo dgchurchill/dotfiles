@@ -1,0 +1,9 @@
+{
+    "FormattingOptions": {
+        "EnableEditorConfigSupport": true,
+        "NewLine": "\n"
+    },
+    "RoslynExtensionsOptions": {
+        "enableDecompilationSupport": true
+    }
+}

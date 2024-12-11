@@ -148,6 +148,46 @@
   (set-face-attribute 'mode-line nil :height 0.9)
   (set-face-attribute 'mode-line-inactive nil :height 0.9))
 
+
+
+
+;; make it obvious when point is in the minibuffer
+;; from https://emacs.stackexchange.com/questions/73783/change-minibuffer-color-when-not-in-minibuffer-and-minibuffer-active
+
+;; current remapping cookie for  buffer-face-mode
+;; (defvar-local dgc/minibuf-face-remapping nil)
+
+;; (defun dgc/minibuf-update-mapping (face)
+;;   ;; Remove existing mapping
+;;   (when dgc/minibuf-face-remapping
+;;     (face-remap-remove-relative dgc/minibuf-face-remapping)
+;;     (setq dgc/minibuf-face-remapping nil))
+;;   ;; Add new mapping
+;;   (setq dgc/minibuf-face-remapping
+;;         (face-remap-add-relative 'default face))
+;;   ;; Update
+;;   (force-window-update (current-buffer)))
+
+;; (defun dgc/minibuf-selected-or-deselected-function (w)
+;;   (cond
+;;    ;; Minibuffer has been selected
+;;    ((and (eq w (minibuffer-window))
+;;          (eq w (selected-window)))
+;;     (dgc/minibuf-update-mapping nil))
+;;    ;; Minibuffer has been deselected
+;;    ((and (eq w (minibuffer-window))
+;;          (not (eq w (selected-window))))
+;;     (with-selected-window (minibuffer-window)
+;;       (dgc/minibuf-update-mapping `(:background ,(ef-themes-get-color-value 'bg-dim)))))))
+
+;; (add-hook 'minibuffer-setup-hook
+;;           (defun install-minibuf-selected-or-deselected-function ()
+;;             (add-hook 'window-selection-change-functions
+;;                       'dgc/minibuf-selected-or-deselected-function nil t)))
+
+(use-package auto-dim-other-buffers
+  :init (auto-dim-other-buffers-mode))
+
 (use-package diminish)
 
 
@@ -509,10 +549,8 @@
 
 ;;;; C#
 
-;; (use-package csharp-mode
-;;   :init
-;;   (add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-tree-sitter-mode)))
-
+(add-to-list 'treesit-language-source-alist '(c-sharp "https://github.com/tree-sitter/tree-sitter-c-sharp"))
+;; M-x treesit-install-language-grammar c-sharp
 
 ;;;; Markdown
 
@@ -575,6 +613,23 @@
 (let ((local-config (expand-file-name "local.el" user-emacs-directory)))
   (when (file-exists-p local-config)
     (load local-config)))
+
+;;; scratch
+
+(when nil
+  (defun dgc/start-profiling (&rest r)
+    (profiler-start 'cpu+mem))
+
+  (defun dgc/stop-profiling (&rest r)
+    (profiler-stop)
+    (profiler-report))
+
+  (advice-add 'project-find-file :before #'dgc/start-profiling)
+  (advice-add 'project-find-file :after #'dgc/stop-profiling))
+
+;; for errors like: eglot--apply-text-edits: jsonrpc-error: "Edits on ‘...’ require version 0, you have 6"
+;; see https://github.com/joaotavora/eglot/issues/1051
+
 
 ;;; automatically added stuff
 (put 'upcase-region 'disabled nil)

@@ -5,6 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(beancount-transaction-indent 4)
  '(comint-process-echoes t)
+ '(comint-scroll-to-bottom-on-input 'this)
  '(cursor-type 'bar)
  '(custom-safe-themes t)
  '(delete-by-moving-to-trash t)
@@ -22,6 +23,7 @@
  '(inhibit-startup-screen t)
  '(isearch-lazy-count t)
  '(ispell-program-name "hunspell")
+ '(major-mode-remap-alist '((csharp-mode . csharp-ts-mode)))
  '(next-error-recenter '(4))
  '(org-babel-load-languages '((emacs-lisp . t) (shell . t)))
  '(pixel-scroll-precision-mode t)
