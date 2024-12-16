@@ -513,7 +513,7 @@
 (defun project-try-dotnet (dir)
   (let* ((sln-file (dgc/locate-dominating-file-regexp dir "\\`.*\\.sln\\'"))
         (csproj-file (dgc/locate-dominating-file-regexp dir "\\`.*\\.csproj\\'"))
-        (file (if eglot-lsp-context (or sln-file csproj-file) csproj-file))) ; for eglot prefer the solution is there is one, otherwise choose the project
+        (file (if (bound-and-true-p eglot-lsp-context) (or sln-file csproj-file) csproj-file))) ; for eglot prefer the solution is there is one, otherwise choose the project
     (when file
       (list 'dotnet (file-name-directory file) (file-name-base file)))))
 
