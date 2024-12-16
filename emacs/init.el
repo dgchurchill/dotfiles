@@ -1,4 +1,3 @@
-
 ;;; -*- lexical-binding: t; -*-
 
 ;;; Notes for installing
@@ -215,23 +214,23 @@
     (with-current-buffer buffer-name (apply #'derived-mode-p major-modes))))
 
 (setq
-  switch-to-buffer-in-dedicated-window 'pop
-  switch-to-buffer-obey-display-actions t
+ switch-to-buffer-in-dedicated-window 'pop
+ switch-to-buffer-obey-display-actions t
 
-  ;; note: can't detect shell buffers by mode because the `shell` command pops to the buffer before changing mode
-  display-buffer-alist
-    `((,(regexp-quote "-shell*")		; project shells
-       (display-buffer-in-side-window)
-       (side . bottom))
-      (,(make-display-buffer-matcher-function '(compilation-mode))
-       (display-buffer-reuse-mode-window display-buffer-in-side-window)
-       (side . bottom))
-      (,(regexp-quote "*xref*")
-       (display-buffer-in-side-window)
-       (side . bottom))
-      (,(regexp-quote "*eldoc*")
-       (display-buffer-in-side-window)
-       (side . right))))
+ ;; note: can't detect shell buffers by mode because the `shell` command pops to the buffer before changing mode
+ display-buffer-alist
+ `((,(regexp-quote "-shell*")		; project shells
+    (display-buffer-in-side-window)
+    (side . bottom))
+   (,(make-display-buffer-matcher-function '(compilation-mode))
+    (display-buffer-reuse-mode-window display-buffer-in-side-window)
+    (side . bottom))
+   (,(regexp-quote "*xref*")
+    (display-buffer-in-side-window)
+    (side . bottom))
+   (,(regexp-quote "*eldoc*")
+    (display-buffer-in-side-window)
+    (side . right))))
 
 (defun eldoc-turn-on-visual-line-mode ()
   (when (string-match-p " ?\\*eldoc" (buffer-name))
