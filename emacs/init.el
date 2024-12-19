@@ -228,6 +228,9 @@
    (,(regexp-quote "*xref*")
     (display-buffer-in-side-window)
     (side . bottom))
+   (,(regexp-quote "*RE-Builder*")
+    (display-buffer-in-side-window)
+    (side . bottom))
    (,(regexp-quote "*eldoc*")
     (display-buffer-in-side-window)
     (side . right))))
@@ -571,6 +574,29 @@
 
 (rx-define dgc/date (seq (= 4 digit) "-" (= 2 digit) "-" (= 2 digit)))
 (rx-define dgc/quoted (seq "\"" (+ (or "\\\"" (not "\""))) "\""))
+
+(progn 
+  (rx-define bc/date (seq (= 4 digit) ?- (= 2 digit) ?- (= 2 digit)))
+  (rx-define bc/string (seq "\"" (* (not "\"")) "\""))
+  (rx-define bc/indented-line (seq bol (+ space) (not (any space ?\n)) (* nonl) ?\n))
+  (rx-define bc/unknown-posting (seq bol (+ space) (* nonl) (group "Expenses:V1:Unknown") (* nonl) ?\n))
+  (rx-define bc/blank-line (seq bol (* space) ?\n))
+  (rx-define bc/transaction (seq bol date (+ space) "*" (* nonl) ?\n (+ bc/indented-line)))
+  (rx-define bc/transaction-with-unknown (seq bol date (+ space) "*" (* nonl) ?\n (* bc/indented-line) bc/unknown-posting (* bc/indented-line)))
+  
+  '(seq bc/transaction-with-unknown))
+
+(defun dgc/beancount-allocate-unknown (pattern account)
+  "Find transactions matching PATTERN with unknown postings and set them to ACCOUNT."
+  (interactive "MPattern: \nMAccount: ")
+  (rx-let
+      ((date (seq (= 4 digit) ?- (= 2 digit) ?- (= 2 digit)))
+       (transaction-start (seq bol date (+ space) "*" (* nonl) (literal pattern) (* nonl) ?\n))
+       (indented-line (seq bol (+ space) (not (any space ?\n)) (* nonl) ?\n))
+       (unknown-posting (seq bol (+ space) (* nonl) (group "Expenses:V1:Unknown") (* nonl) ?\n))
+       (search (seq transaction-start (* indented-line) unknown-posting (* indented-line))))
+    (while (re-search-forward (rx search) nil t)
+      (replace-match account nil nil nil 1))))
 
 (defun dgc/beancount-find-trans (term)
   "Find all matching transactions"

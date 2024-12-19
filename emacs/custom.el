@@ -27,6 +27,8 @@
  '(next-error-recenter '(4))
  '(org-babel-load-languages '((emacs-lisp . t) (shell . t)))
  '(pixel-scroll-precision-mode t)
+ '(reb-re-syntax 'rx)
+ '(safe-local-variable-values '((org-duration-format (special . h:mm))))
  '(scroll-conservatively 10000)
  '(set-mark-command-repeat-pop t)
  '(straight-vc-git-default-clone-depth 1)
