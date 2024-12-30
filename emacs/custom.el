@@ -3,6 +3,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auto-dim-other-buffers-affected-faces
+   '((default auto-dim-other-buffers-face)
+     (org-block auto-dim-other-buffers-face)
+     (org-hide auto-dim-other-buffers-hide-face)
+     (fringe auto-dim-other-buffers-face)))
  '(beancount-transaction-indent 4)
  '(comint-process-echoes t)
  '(comint-scroll-to-bottom-on-input 'this)
