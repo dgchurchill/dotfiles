@@ -95,7 +95,7 @@
 
 ;;; Themes and appearance
 
-(set-face-attribute 'default nil :family "Iosevka Slab" :height 140)
+(set-face-attribute 'default nil :family "Iosevka Slab" :height 120)
 (set-face-attribute 'fixed-pitch nil :family "Iosevka Slab" :height 1.0)
 (set-face-attribute 'variable-pitch nil :family "Iosevka Etoile" :height 1.0)
 
@@ -515,7 +515,7 @@
 (defun project-try-dotnet (dir)
   (let* ((sln-file (dgc/locate-dominating-file-regexp dir "\\`.*\\.sln\\'"))
         (csproj-file (dgc/locate-dominating-file-regexp dir "\\`.*\\.csproj\\'"))
-        (file (if (bound-and-true-p eglot-lsp-context) (or sln-file csproj-file) csproj-file))) ; for eglot prefer the solution is there is one, otherwise choose the project
+        (file (if (bound-and-true-p eglot-lsp-context) (or sln-file csproj-file) (or csproj-file sln-file)))) ; for eglot prefer the solution first so that all references can be found
     (when file
       (list 'dotnet (file-name-directory file) (file-name-base file)))))
 
