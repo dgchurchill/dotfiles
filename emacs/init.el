@@ -30,6 +30,8 @@
 
 ;;; Core settings
 
+(setq default-directory "~/")
+
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 
@@ -101,6 +103,9 @@
 
 (when (eq system-type 'windows-nt)
   (set-fontset-font t 'emoji "Segoe UI Emoji"))
+
+(use-package auto-dim-other-buffers
+  :init (auto-dim-other-buffers-mode))
 
 ;; (use-package modus-themes
 ;;   :demand t
@@ -184,8 +189,7 @@
 ;;             (add-hook 'window-selection-change-functions
 ;;                       'dgc/minibuf-selected-or-deselected-function nil t)))
 
-(use-package auto-dim-other-buffers
-  :init (auto-dim-other-buffers-mode))
+
 
 (use-package diminish)
 
