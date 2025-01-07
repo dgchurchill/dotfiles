@@ -8,6 +8,7 @@
      (org-block auto-dim-other-buffers-face)
      (org-hide auto-dim-other-buffers-hide-face)
      (fringe auto-dim-other-buffers-face)))
+ '(aw-keys '(97 115 100 102 103 113 119 101 114))
  '(beancount-transaction-indent 4)
  '(comint-process-echoes t)
  '(comint-scroll-to-bottom-on-input 'this)

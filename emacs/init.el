@@ -40,11 +40,6 @@
 (setq enable-recursive-minibuffers t)
 (minibuffer-depth-indicate-mode)
 
-;; (use-package gcmh
-;;   :diminish
-;;   :init
-;;   (gcmh-mode))
-
 ;; increase amount read from a pipe in one go; supposed to improve performance of subprocess communication (e.g. lsp servers)
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 
@@ -153,45 +148,10 @@
   (set-face-attribute 'mode-line-inactive nil :height 0.9))
 
 
-
-
-;; make it obvious when point is in the minibuffer
-;; from https://emacs.stackexchange.com/questions/73783/change-minibuffer-color-when-not-in-minibuffer-and-minibuffer-active
-
-;; current remapping cookie for  buffer-face-mode
-;; (defvar-local dgc/minibuf-face-remapping nil)
-
-;; (defun dgc/minibuf-update-mapping (face)
-;;   ;; Remove existing mapping
-;;   (when dgc/minibuf-face-remapping
-;;     (face-remap-remove-relative dgc/minibuf-face-remapping)
-;;     (setq dgc/minibuf-face-remapping nil))
-;;   ;; Add new mapping
-;;   (setq dgc/minibuf-face-remapping
-;;         (face-remap-add-relative 'default face))
-;;   ;; Update
-;;   (force-window-update (current-buffer)))
-
-;; (defun dgc/minibuf-selected-or-deselected-function (w)
-;;   (cond
-;;    ;; Minibuffer has been selected
-;;    ((and (eq w (minibuffer-window))
-;;          (eq w (selected-window)))
-;;     (dgc/minibuf-update-mapping nil))
-;;    ;; Minibuffer has been deselected
-;;    ((and (eq w (minibuffer-window))
-;;          (not (eq w (selected-window))))
-;;     (with-selected-window (minibuffer-window)
-;;       (dgc/minibuf-update-mapping `(:background ,(ef-themes-get-color-value 'bg-dim)))))))
-
-;; (add-hook 'minibuffer-setup-hook
-;;           (defun install-minibuf-selected-or-deselected-function ()
-;;             (add-hook 'window-selection-change-functions
-;;                       'dgc/minibuf-selected-or-deselected-function nil t)))
-
-
-
 (use-package diminish)
+
+(use-package ace-window
+  :bind ([remap other-window] . ace-window))
 
 
 ;;; Utilities
@@ -475,7 +435,6 @@
   :init (eglot-booster-mode))
 
 (use-package tree-sitter)
-(use-package tree-sitter-langs)
 (use-package tree-sitter-indent)
 
 (use-package yasnippet
