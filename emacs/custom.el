@@ -23,8 +23,7 @@
  '(eldoc-echo-area-use-multiline-p nil)
  '(gc-cons-percentage 0.2)
  '(grep-find-ignored-directories
-   '("SCCS" "RCS" "CVS" "MCVS" ".src" ".svn" ".git" ".hg" ".bzr" "_MTN"
-     "_darcs" "{arch}" ".vs"))
+   '("SCCS" "RCS" "CVS" "MCVS" ".src" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" ".vs"))
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(isearch-lazy-count t)

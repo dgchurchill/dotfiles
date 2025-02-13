@@ -335,7 +335,9 @@
   :config
   (org-load-modules-maybe))  ;; module loading is normally done on the first use of org-mode, but can take some time
 
-(use-package org-roam)
+(use-package org-roam
+  :config
+  (org-roam-db-autosync-mode))
 
 (defun dgc/org-silent-clock-in ()
   "Clock in without affecting the currently running clock"
@@ -413,10 +415,7 @@
 
 ;;; Utilities
 
-;; (use-package deadgrep
-;;   :bind (:map escape-map
-;;          ("g g" . deadgrep))
-;; )
+(use-package eat)
 
 (use-package rg
   :bind ("C-c s" . rg-menu))
