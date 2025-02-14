@@ -444,9 +444,42 @@
 ;;   :demand t
 ;;   :after (yasnippet))
 
-;; M-x dape, "netcoredbg - dotnet run"
-;; "netcoredbg :cwd "c:/Users/Dave/source/flipgroup/Chapi.Customer.API/src/Chapi.Customer.API/bin/Debug/net8.0" :program "Customer.API.dll""
-(use-package dape)
+
+;; M-x dape, "netcoredbg"
+;; M-x dape, "netcoredbg-attach :processId <pid>"
+;;
+;; running tests:
+;; > $env:VSTEST_HOST_DEBUG="1"
+;; > dotnet vstest /TestCaseFilter:"Category!=Integration" bin/Debug/net8.0/Tests.dll
+;; M-x dape, "netcoredbg-attach :processId <pid>"
+(use-package dape
+  :config
+  (setf (alist-get 'netcoredbg dape-configs)
+        '(
+          modes (csharp-mode csharp-ts-mode)
+          ensure dape-ensure-command
+          command "netcoredbg"
+          command-args ["--interpreter=vscode" "--log"]
+          :request "launch"
+          :cwd dape-cwd
+          :program (dgc/dotnet-get-target-path)
+          :stopAtEntry nil))
+  (add-to-list 'dape-configs
+               '(netcoredbg-attach
+                 modes (csharp-mode csharp-ts-mode)
+                 ensure dape-ensure-command
+                 command "netcoredbg"
+                 command-args ["--interpreter=vscode" "--log"]
+                 :request "attach"
+                 :cwd dape-cwd
+                 :stopAtEntry nil))
+  (when (eq system-type 'windows-nt)
+    ;; HACK: advise dape to use backslashes in the paths sent to the debug server on Windows.
+    ;;
+    ;; PDB files are built with backslashes in their path, and netcoredbg does not normalise them.
+    ;; dape uses `expand-file-name`, which normalises all the slashes to forward slashes.
+    ;; The result is that breakpoints fail to set because the source file names don't match.
+    (advice-add 'dape--path-remote :filter-return (lambda (path) (string-replace "/" "\\" path)))))
 
 ;;;; Simple modes
 (use-package json-mode)
@@ -488,6 +521,28 @@
   :config
   (add-to-list 'project-find-functions #'project-try-dotnet))
 
+;; dotnet vstest (dotnet msbuild -v:d -getTargetResult:GetTargetPath | jq -r '.TargetResults.GetTargetPath.Items[0].FullPath') -lt
+
+(defun dgc/json-at-path (json &rest path)
+  "Navigate through nested hash tables and arrays in JSON data using a dotted path."
+  (let ((result json))
+    (dolist (key path result)
+      (setq result
+            (if (integerp key)
+                (aref result key)
+              (gethash key result))))))
+
+(defun dgc/dotnet-get-target-path ()
+  (let* ((rawJson (with-output-to-string
+              (with-current-buffer standard-output
+                (call-process "pwsh" nil t nil "-Command" "dotnet msbuild -getTargetResult:GetTargetPath"))))
+         (json (json-parse-string rawJson)))
+    (dgc/json-at-path json "TargetResults" "GetTargetPath" "Items" 0 "FullPath")))
+
+(defun dgc/dotnet-list-tests ()
+  (interactive)
+  (call-process "pwsh" nil "*dave*" t "-Command" "dotnet vstest (dotnet msbuild -v:d -getTargetResult:GetTargetPath | jq -r '.TargetResults.GetTargetPath.Items[0].FullPath') -lt"))
+
 (defun dgc/dotnet-watch-test ()
   (interactive)
   (let ((shell-command-buffer-name-async "*dotnet test shell*"))
@@ -516,6 +571,10 @@
 
 (add-to-list 'treesit-language-source-alist '(c-sharp "https://github.com/tree-sitter/tree-sitter-c-sharp"))
 ;; M-x treesit-install-language-grammar c-sharp
+
+(add-hook 'csharp-ts-mode-hook
+          (lambda ()
+            (setq-local compile-command "dotnet build ")))
 
 ;;;; Markdown
 

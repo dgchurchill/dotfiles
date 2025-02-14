@@ -12,6 +12,7 @@
  '(beancount-transaction-indent 4)
  '(comint-process-echoes t)
  '(comint-scroll-to-bottom-on-input 'this)
+ '(compilation-scroll-output t)
  '(cursor-type 'bar)
  '(custom-safe-themes t)
  '(delete-by-moving-to-trash t)
