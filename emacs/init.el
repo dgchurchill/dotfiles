@@ -63,7 +63,6 @@
 ;;; General keybindings
 
 (repeat-mode)
-(global-set-key (kbd "C-x C-b") #'ibuffer)
 (global-set-key (kbd "M-u") #'universal-argument)  ; originally upcase-word
 (define-key universal-argument-map (kbd "M-u") #'universal-argument-more)
 (global-set-key (kbd "C-z") #'undo) ; originally suspend-frame
@@ -74,19 +73,13 @@
 ;; <escape> is the escape key when in a window system. It's normally translated to ESC (^[) by
 ;; function-key-map, but not if we explicitly bind it.  Don't bind to ESC, because that's where all
 ;; the M- keybindings actually live (via the meta-prefix-char variable).
-(setq escape-map (make-sparse-keymap))
-(global-set-key (kbd "<escape>") escape-map)
-(define-key escape-map (kbd "ESC") #'keyboard-escape-quit)
+(global-set-key (kbd "<escape>") ctl-x-map)
 
-(define-key escape-map (kbd "b k") #'kill-current-buffer)
+;; Previously when I had <escape> bound to its own map I tried to keep the keyboard-escape-quit behaviour
+;; but ctl-x-map has its own bindings for ESC. Can still press ^[ ^[ ^[ for keyboard-escape-quit
+;; (define-key escape-map (kbd "ESC") #'keyboard-escape-quit)
 
 (global-set-key (kbd "M-o") #'other-window)
-(define-key escape-map (kbd "w w") #'other-window) ; single shot
-(define-key escape-map (kbd "w o") #'other-window) ; for repeat-mode
-(define-key escape-map (kbd "w k") #'delete-window)
-(define-key escape-map (kbd "w f") #'delete-other-windows)
-
-(define-key escape-map (kbd "p") project-prefix-map)
 
 ;; temporary, because tab-always-indent complete doesn't seem work with Omnisharp
 (global-set-key (kbd "C-<tab>") #'completion-at-point)
@@ -164,6 +157,12 @@
 
 
 ;;; Buffer management
+
+(use-package ibuffer
+  :bind (("C-x C-b" . ibuffer)
+         :map ibuffer-mode-map
+         ("M-j" . consult-buffer)
+         ("M-o" . other-window)))
 
 (use-package ibuffer-vc
   :demand t
@@ -265,8 +264,6 @@
          ("M-j" . consult-buffer)                  ;; orig. default-indent-new-line
          ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
          ("C-x B" . consult-buffer-force)
-	 ("<escape> b b" . consult-buffer)
-	 ("<escape> b B" . consult-buffer-force)
          ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
          ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
          ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
@@ -547,7 +544,7 @@
   (interactive)
   (let ((shell-command-buffer-name-async "*dotnet test shell*"))
     (async-shell-command "dotnet watch test --filter \"Category!=Integration\"" nil nil)))
-(define-key escape-map (kbd "d t") #'dgc/dotnet-watch-test)
+;; (define-key escape-map (kbd "d t") #'dgc/dotnet-watch-test)
 
 
 ;;;; F#
