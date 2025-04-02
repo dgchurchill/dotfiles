@@ -13,6 +13,7 @@
  '(comint-process-echoes t)
  '(comint-scroll-to-bottom-on-input 'this)
  '(compilation-scroll-output t)
+ '(create-lockfiles nil)
  '(cursor-type 'bar)
  '(custom-safe-themes t)
  '(delete-by-moving-to-trash t)
@@ -24,7 +25,8 @@
  '(eldoc-echo-area-use-multiline-p nil)
  '(gc-cons-percentage 0.2)
  '(grep-find-ignored-directories
-   '("SCCS" "RCS" "CVS" "MCVS" ".src" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" ".vs"))
+   '("SCCS" "RCS" "CVS" "MCVS" ".src" ".svn" ".git" ".hg" ".bzr" "_MTN"
+     "_darcs" "{arch}" ".vs"))
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(isearch-lazy-count t)
@@ -35,6 +37,7 @@
  '(pixel-scroll-precision-mode t)
  '(reb-re-syntax 'rx)
  '(safe-local-variable-values '((org-duration-format (special . h:mm))))
+ '(save-interprogram-paste-before-kill 50000)
  '(scroll-conservatively 10000)
  '(set-mark-command-repeat-pop t)
  '(straight-vc-git-default-clone-depth 1)

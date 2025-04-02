@@ -197,7 +197,7 @@
     (side . bottom))
    (,(regexp-quote "*eldoc*")
     (display-buffer-in-side-window)
-    (side . right))))
+    (side . left))))
 
 (defun eldoc-turn-on-visual-line-mode ()
   (when (string-match-p " ?\\*eldoc" (buffer-name))
