@@ -60,6 +60,10 @@
 (push '(scroll-bar-width . :never) frameset-filter-alist)
 (push '(scroll-bar-height . :never) frameset-filter-alist)
 
+(unless (display-graphic-p)
+  (xterm-mouse-mode 1))
+
+
 ;;; General keybindings
 
 (repeat-mode)
