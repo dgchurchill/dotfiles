@@ -11,11 +11,15 @@
         electric-newline-and-maybe-indent
         forward-sentence
         indent-for-tab-command
+        kill-region
+        mark-sexp
         org-end-of-line
         org-self-insert-command
+        yaml-electric-backspace
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        mouse-set-region
         pixel-scroll-precision
         ))

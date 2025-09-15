@@ -21,6 +21,7 @@
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(eglot-autoshutdown t)
  '(eglot-connect-timeout 60)
+ '(eglot-events-buffer-config '(:size 0 :format full))
  '(eldoc-echo-area-prefer-doc-buffer t)
  '(eldoc-echo-area-use-multiline-p nil)
  '(gc-cons-percentage 0.2)

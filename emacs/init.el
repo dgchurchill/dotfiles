@@ -481,7 +481,8 @@
 ;;
 ;; running tests:
 ;; > $env:VSTEST_HOST_DEBUG="1"
-;; > dotnet vstest /TestCaseFilter:"Category!=Integration" bin/Debug/net8.0/Tests.dll
+;; > dotnet test --filter "Category!=Integration"
+;; > dotnet test --filter "FullyQualifiedName~MyTestMethod"
 ;; M-x dape, "netcoredbg-attach :processId <pid>"
 (use-package dape
   :config
@@ -615,6 +616,16 @@
   )
 
 
+;;;; Typescript
+(add-to-list 'treesit-language-source-alist '(typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
+(add-to-list 'treesit-language-source-alist '(tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src"))
+;; M-x treesit-install-language-grammar typescript
+;; M-x treesit-install-language-grammar tsx
+
+(use-package typescript-ts-mode
+  :mode "\\.tsx?\\'")
+
+ 
 ;;;; Beancount
 
 (use-package beancount-mode
@@ -704,6 +715,18 @@
 
   (advice-add 'project-find-file :before #'dgc/start-profiling)
   (advice-add 'project-find-file :after #'dgc/stop-profiling))
+
+(defun create-center-window-layout ()
+  (interactive)
+  (delete-other-windows)
+  (let ((w1 (selected-window))
+        (w2 (split-window-right (/ (window-width) 4))))
+    (with-selected-window w2
+      (split-window-right (/ (* (window-width) 2) 3)))
+    (select-window (window-next-sibling w1))))
+      
+  
+
 
 ;; for errors like: eglot--apply-text-edits: jsonrpc-error: "Edits on ‘...’ require version 0, you have 6"
 ;; see https://github.com/joaotavora/eglot/issues/1051
