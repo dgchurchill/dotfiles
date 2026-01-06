@@ -692,13 +692,14 @@
 ;;; LLMs
 (use-package gptel
   :custom
-  (gptel-model "llama3.1")
+  (gptel-model 'claude-sonnet-4-5-20250929)
   :config
+  (gptel-make-ollama "Ollama"
+    :host "localhost:11434"
+    :stream t
+    :models '("llama3.1" "mistral-nemo"))
   ;; setting gptel-backend in :config instead of :custom to avoid recursive load error
-  (setq gptel-backend (gptel-make-ollama "Ollama"
-                        :host "localhost:11434"
-                        :stream t
-                        :models '("llama3.1" "mistral-nemo"))))
+  (setq gptel-backend (gptel-make-anthropic "Claude" :stream t :key #'gptel-api-key-from-auth-source)))
 
 
 ;;; environment specific settings
