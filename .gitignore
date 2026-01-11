@@ -2,3 +2,4 @@
 .DS_Store
 desktop.ini
 /emacs/.lsp-session-v1
+/emacs/org-persist/
