@@ -127,8 +127,10 @@
 
 (use-package ef-themes
   :demand t
+  :init
+  (modus-themes-include-derivatives-mode 1)
   :custom
-  (ef-themes-headings
+  (modus-themes-headings
    '((0 variable-pitch light 1.9)
      (1 variable-pitch light 1.8)
      (2 variable-pitch regular 1.7)
@@ -138,10 +140,11 @@
      (6 variable-pitch 1.3)
      (7 variable-pitch 1.2)
      (t variable-pitch 1.1)))
-  (ef-themes-mixed-fonts t)
-  (ef-themes-variable-pitch-ui t)
+  (modus-themes-mixed-fonts t)
+  (modus-themes-variable-pitch-ui t)
   :config
-  (load-theme 'ef-duo-light)
+  ;(load-theme 'ef-duo-light)
+  (load-theme 'ef-day)
   (set-face-attribute 'mode-line nil :height 0.9)
   (set-face-attribute 'mode-line-inactive nil :height 0.9))
 
