@@ -79,6 +79,10 @@
 ;; the M- keybindings actually live (via the meta-prefix-char variable).
 (global-set-key (kbd "<escape>") ctl-x-map)
 
+;; Also let's have double escape get to the C-c map. This makes it hard to hit C-x ESC for repeat-complex-command
+;; but not a big deal.
+(global-set-key (kbd "<escape> <escape>") mode-specific-map)
+
 ;; Previously when I had <escape> bound to its own map I tried to keep the keyboard-escape-quit behaviour
 ;; but ctl-x-map has its own bindings for ESC. Can still press ^[ ^[ ^[ for keyboard-escape-quit
 ;; (define-key escape-map (kbd "ESC") #'keyboard-escape-quit)
@@ -478,9 +482,9 @@
 (use-package yasnippet
   :init (yas-global-mode))
 
-;; (use-package yasnippet-snippets
-;;   :demand t
-;;   :after (yasnippet))
+(use-package yasnippet-snippets
+  :demand t
+  :after (yasnippet))
 
 
 ;; M-x dape, "netcoredbg"
@@ -519,6 +523,8 @@
     ;; dape uses `expand-file-name`, which normalises all the slashes to forward slashes.
     ;; The result is that breakpoints fail to set because the source file names don't match.
     (advice-add 'dape--path-remote :filter-return (lambda (path) (string-replace "/" "\\" path)))))
+
+(use-package restclient)
 
 ;;;; Simple modes
 (use-package json-mode)
@@ -559,6 +565,10 @@
   :after (project)
   :config
   (add-to-list 'project-find-functions #'project-try-dotnet))
+
+(use-package sharper
+  :bind
+  ("C-c n" . sharper-main-transient))
 
 ;; dotnet vstest (dotnet msbuild -v:d -getTargetResult:GetTargetPath | jq -r '.TargetResults.GetTargetPath.Items[0].FullPath') -lt
 

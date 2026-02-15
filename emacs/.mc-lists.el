@@ -20,6 +20,8 @@
 
 (setq mc/cmds-to-run-once
       '(
+        beginning-of-buffer
         mouse-set-region
         pixel-scroll-precision
+        scroll-left
         ))
