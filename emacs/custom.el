@@ -27,6 +27,7 @@
  '(eldoc-echo-area-prefer-doc-buffer t)
  '(eldoc-echo-area-use-multiline-p nil)
  '(gc-cons-percentage 0.2)
+ '(gptel-default-mode 'org-mode)
  '(grep-find-ignored-directories
    '("SCCS" "RCS" "CVS" "MCVS" ".src" ".svn" ".git" ".hg" ".bzr" "_MTN"
      "_darcs" "{arch}" ".vs"))
@@ -49,7 +50,7 @@
  '(tab-always-indent 'complete)
  '(tab-width 4)
  '(text-mode-hook '(turn-on-flyspell text-mode-hook-identify))
- '(text-scale-mode-step 1.1)
+ '(text-scale-mode-step 1.05)
  '(tool-bar-mode nil)
  '(window-divider-default-bottom-width 2)
  '(window-divider-default-places t)

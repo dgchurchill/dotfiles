@@ -705,7 +705,9 @@
 ;;; LLMs
 (use-package gptel
   :custom
-  (gptel-model 'claude-sonnet-4-5-20250929)
+  (gptel-model 'claude-sonnet-4-6)
+  :bind
+  (("C-c RET" . gptel-send))
   :config
   (gptel-make-ollama "Ollama"
     :host "localhost:11434"
