@@ -13,6 +13,7 @@
         indent-for-tab-command
         kill-region
         mark-sexp
+        org-delete-char
         org-end-of-line
         org-self-insert-command
         yaml-electric-backspace

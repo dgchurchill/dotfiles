@@ -472,7 +472,7 @@
               ("C-." . eglot-code-actions)))
 
 (use-package eglot-booster
-  :straight (:type git :host github :repo "jdtsmith/eglot-booster")
+  :straight (:type git :host github :repo "jdtsmith/eglot-booster") ; requires https://github.com/blahgeek/emacs-lsp-booster
   :after eglot
   :init (eglot-booster-mode))
 
