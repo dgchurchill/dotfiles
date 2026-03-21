@@ -52,6 +52,7 @@
  '(text-mode-hook '(turn-on-flyspell text-mode-hook-identify))
  '(text-scale-mode-step 1.05)
  '(tool-bar-mode nil)
+ '(vc-follow-symlinks t)
  '(window-divider-default-bottom-width 2)
  '(window-divider-default-places t)
  '(window-divider-default-right-width 2)
