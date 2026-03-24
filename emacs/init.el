@@ -380,6 +380,12 @@
   :config
   (org-load-modules-maybe))  ;; module loading is normally done on the first use of org-mode, but can take some time
 
+(use-package org-modern
+  :after org
+  :demand t
+  :config
+  (global-org-modern-mode))
+
 (use-package org-roam
   :config
   (org-roam-db-autosync-mode))
@@ -710,8 +716,6 @@
 (use-package gptel
   :custom
   (gptel-model 'claude-sonnet-4-6)
-  :bind
-  (("C-c RET" . gptel-send))
   :config
   (gptel-make-ollama "Ollama"
     :host "localhost:11434"
