@@ -49,6 +49,11 @@
   :init
   (exec-path-from-shell-initialize))
 
+(use-package auth-source
+  :config
+  (when (eq system-type 'darwin)
+    (add-to-list 'auth-sources 'macos-keychain-internet)))
+
 (pcase system-type
   ('windows-nt
    (setq explicit-shell-file-name "pwsh")
@@ -56,9 +61,7 @@
    (setq find-program "C:/msys64/usr/bin/find.exe")
    (setq grep-find-command nil)
    (setq grep-host-defaults-alist nil)
-   (grep-compute-defaults))
-  ('darwin
-   (add-to-list 'auth-sources 'macos-keychain-internet)))
+   (grep-compute-defaults)))
 
 (push '(scroll-bar-width . :never) frameset-filter-alist)
 (push '(scroll-bar-height . :never) frameset-filter-alist)

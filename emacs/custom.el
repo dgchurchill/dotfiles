@@ -43,6 +43,8 @@
  '(org-hide-emphasis-markers t)
  '(org-modern-timestamp nil)
  '(org-pretty-entities t)
+ '(org-roam-directory
+   "/Users/dave/Library/Mobile Documents/com~apple~CloudDocs/OrgRoam/")
  '(pixel-scroll-precision-mode t)
  '(reb-re-syntax 'rx)
  '(safe-local-variable-values '((org-duration-format (special . h:mm))))
