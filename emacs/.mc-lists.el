@@ -6,6 +6,7 @@
         c-electric-brace
         c-electric-semi&comma
         c-indent-line-or-region
+        consult-yank-pop
         cycle-spacing
         delete-indentation
         electric-newline-and-maybe-indent
