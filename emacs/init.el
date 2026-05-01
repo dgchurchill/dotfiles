@@ -545,6 +545,10 @@
 
 ;;;; dotnet
 
+;; note: if on Windows make sure to use a dev drive for anything but the smallest project (assuming it's trusted code)
+;;       the default implementation of finding project files uses find.exe which somehow ends up triggering a long process
+;;        of Windows Defender scanning all the files synchronously (if not on a dev drive)
+
 (cl-defmethod project-root ((project (head dotnet)))
   (nth 1 project))
 
@@ -562,7 +566,7 @@
       (car (directory-files dominating-dir t match nil 1)))))
 
 (defun project-try-dotnet (dir)
-  (let* ((sln-file (dgc/locate-dominating-file-regexp dir "\\`.*\\.sln\\'"))
+  (let* ((sln-file (dgc/locate-dominating-file-regexp dir "\\`.*\\.slnx?\\'"))
         (csproj-file (dgc/locate-dominating-file-regexp dir "\\`.*\\.csproj\\'"))
         (file (if (bound-and-true-p eglot-lsp-context) (or sln-file csproj-file) (or csproj-file sln-file)))) ; for eglot prefer the solution first so that all references can be found
     (when file
@@ -612,7 +616,8 @@
 (use-package fsharp-mode
   :mode "\\.fs\\'"
   :init
-  (add-hook 'fsharp-mode-hook #'eglot-ensure))
+  (add-hook 'fsharp-mode-hook #'eglot-ensure)
+  (add-hook 'eglot-managed-mode-hook (lambda () (eglot-inlay-hints-mode -1))))
 
 ;; note: need to interactively invoke eglot in an fsharp buffer once in order to get FsAutocomplete installed
 (use-package eglot-fsharp
