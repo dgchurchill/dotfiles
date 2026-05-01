@@ -141,15 +141,11 @@
   (modus-themes-include-derivatives-mode 1)
   :custom
   (modus-themes-headings
-   '((0 variable-pitch light 1.9)
-     (1 variable-pitch light 1.8)
-     (2 variable-pitch regular 1.7)
-     (3 variable-pitch regular 1.6)
-     (4 variable-pitch regular 1.5)
-     (5 variable-pitch 1.4) ; absence of weight means `bold'
-     (6 variable-pitch 1.3)
-     (7 variable-pitch 1.2)
-     (t variable-pitch 1.1)))
+   '((0 variable-pitch 1.6)
+     (1 variable-pitch 1.5)
+     (2 variable-pitch 1.3)
+     (3 variable-pitch 1.1)
+     (t variable-pitch 1.0))) ; absence of weight means `bold'
   (modus-themes-mixed-fonts t)
   (modus-themes-variable-pitch-ui t)
   :config
