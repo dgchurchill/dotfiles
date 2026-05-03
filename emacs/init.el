@@ -367,6 +367,24 @@
          ("C-<" . mc/mark-previous-like-this)
          ("C-c C-<" . mc/mark-all-like-this)))
 
+(use-package denote
+  :hook (dired-mode . denote-dired-mode)
+  :bind
+  (("C-c d n" . denote)
+   ("C-c d r" . denote-rename-file)
+   ("C-c d l" . denote-link)
+   ("C-c d b" . denote-backlinks)
+   ("C-c d d" . denote-dired)
+   ("C-c d g" . denote-grep))
+  :config
+  (pcase system-type
+    ('darwin (setq denote-directory (expand-file-name "~/Documents/Notes/"))))
+
+  ;; Automatically rename Denote buffers when opening them so that
+  ;; instead of their long file name they have, for example, a literal
+  ;; "[D]" followed by the file's title.  Read the doc string of
+  ;; `denote-rename-buffer-format' for how to modify this.
+  (denote-rename-buffer-mode 1))
 
 ;;; Org mode
 
@@ -384,10 +402,6 @@
   :demand t
   :config
   (global-org-modern-mode))
-
-(use-package org-roam
-  :config
-  (org-roam-db-autosync-mode))
 
 (defun dgc/org-silent-clock-in ()
   "Clock in without affecting the currently running clock"
