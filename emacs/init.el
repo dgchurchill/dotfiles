@@ -154,6 +154,33 @@
   (set-face-attribute 'mode-line nil :height 0.9)
   (set-face-attribute 'mode-line-inactive nil :height 0.9))
 
+(setq mode-line-format
+      `("%e" mode-line-front-space
+        (:propertize
+         (""
+          ;; mode-line-mule-info
+          mode-line-client
+          ,(propertize
+	       "%1*"
+	       'help-echo #'mode-line-read-only-help-echo
+	       'local-map (purecopy (make-mode-line-mouse-map
+			                     'mouse-1
+			                     #'mode-line-toggle-read-only))
+	       'mouse-face 'mode-line-highlight)
+          ;; mode-line-modified
+          mode-line-remote
+          mode-line-window-dedicated)
+         display (min-width (6.0)))
+        mode-line-frame-identification
+        mode-line-buffer-identification
+        "   "
+        mode-line-position
+        (project-mode-line project-mode-line-format)
+        (vc-mode vc-mode)
+        "  "
+        mode-line-modes
+        mode-line-misc-info
+        mode-line-end-spaces))
 
 (use-package diminish)
 
