@@ -154,20 +154,21 @@
   (set-face-attribute 'mode-line nil :height 0.9)
   (set-face-attribute 'mode-line-inactive nil :height 0.9))
 
+(use-package nerd-icons
+  :demand t)
+
 (setq mode-line-format
       `("%e" mode-line-front-space
         (:propertize
          (""
           ;; mode-line-mule-info
           mode-line-client
-          ,(propertize
-	       "%1*"
-	       'help-echo #'mode-line-read-only-help-echo
-	       'local-map (purecopy (make-mode-line-mouse-map
-			                     'mouse-1
-			                     #'mode-line-toggle-read-only))
-	       'mouse-face 'mode-line-highlight)
-          ;; mode-line-modified
+          (:eval (cond
+                  (buffer-read-only
+                   (nerd-icons-faicon "nf-fa-lock"))
+                  ((buffer-modified-p)
+                   (nerd-icons-faicon "nf-fa-pencil"))
+                  (t " ")))
           mode-line-remote
           mode-line-window-dedicated)
          display (min-width (6.0)))
