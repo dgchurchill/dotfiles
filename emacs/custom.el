@@ -61,6 +61,7 @@
  '(tool-bar-mode nil)
  '(treemacs-python-executable nil)
  '(vc-follow-symlinks t)
+ '(visual-fill-column-center-text t)
  '(window-divider-default-bottom-width 2)
  '(window-divider-default-places t)
  '(window-divider-default-right-width 2)

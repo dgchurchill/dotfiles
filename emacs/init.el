@@ -414,6 +414,8 @@
   ;; `denote-rename-buffer-format' for how to modify this.
   (denote-rename-buffer-mode 1))
 
+(use-package visual-fill-column)
+
 ;;; Org mode
 
 (use-package org
@@ -579,7 +581,6 @@
 ;;;; Simple modes
 (use-package json-mode)
 (use-package yaml-mode)
-(use-package olivetti)
 
 (use-package terraform-mode
   :custom
