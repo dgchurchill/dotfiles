@@ -167,7 +167,7 @@
 (use-package nerd-icons
   :demand t)
 
-(setq mode-line-format
+(setq-default mode-line-format
       `("%e" mode-line-front-space
         (:propertize
          (""
