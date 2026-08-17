@@ -47,6 +47,7 @@
  '(org-use-sub-superscripts '{})
  '(pixel-scroll-precision-mode t)
  '(reb-re-syntax 'rx)
+ '(repeat-exit-key "<escape>")
  '(safe-local-variable-values '((org-duration-format (special . h:mm))))
  '(save-interprogram-paste-before-kill 50000)
  '(scroll-conservatively 10000)
