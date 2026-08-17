@@ -146,6 +146,16 @@
      (2 variable-pitch 1.3)
      (3 variable-pitch 1.1)
      (t variable-pitch 1.0))) ; absence of weight means `bold'
+  (ef-day-palette-overrides
+   '((fg-heading-0 yellow)
+     (fg-heading-1 yellow)
+     (fg-heading-2 yellow)
+     (fg-heading-3 yellow)
+     (fg-heading-4 yellow)
+     (fg-heading-5 yellow)
+     (fg-heading-6 yellow)
+     (fg-heading-7 yellow)
+     (fg-heading-8 yellow)))
   (modus-themes-mixed-fonts t)
   (modus-themes-variable-pitch-ui t)
   :config
