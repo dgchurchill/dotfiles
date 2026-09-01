@@ -418,7 +418,12 @@
   (add-hook 'org-mode-hook 'variable-pitch-mode)
   (add-hook 'org-mode-hook 'visual-line-mode)
   :config
-  (org-load-modules-maybe))  ;; module loading is normally done on the first use of org-mode, but can take some time
+  (org-load-modules-maybe)  ;; module loading is normally done on the first use of org-mode, but can take some time, so do it at startup (because we have :demand t)
+  :bind (("C-c c" . org-capture))
+  :custom ((org-capture-templates
+            '(("t" "Task" entry (file "~/docs/agenda.org") "* TODO %?\n  SCHEDULED: %^{Schedule for}t")))
+           (org-agenda-files
+            '("~/docs/agenda.org"))))
 
 (use-package org-modern
   :after org
@@ -502,7 +507,12 @@
 
 ;;; Utilities
 
-(use-package eat)
+(use-package ghostel
+  :bind (:map ghostel-semi-char-mode-map
+              ("M-j" . consult-buffer))
+  :config
+  (when (eq system-type 'windows-nt)
+    (setq ghostel-shell "pwsh")))
 
 (use-package rg
   :bind ("C-c s" . rg-menu))
