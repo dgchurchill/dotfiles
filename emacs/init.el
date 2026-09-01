@@ -421,7 +421,7 @@
   (org-load-modules-maybe)  ;; module loading is normally done on the first use of org-mode, but can take some time, so do it at startup (because we have :demand t)
   :bind (("C-c c" . org-capture))
   :custom ((org-capture-templates
-            '(("t" "Task" entry (file "~/docs/agenda.org") "* TODO %?\n  SCHEDULED: %^{Schedule for}t")))
+            '(("t" "Task" entry (file "~/docs/agenda.org") "* TODO %?\n  SCHEDULED: %^{Schedule for}t\n")))
            (org-agenda-files
             '("~/docs/agenda.org"))))
 
