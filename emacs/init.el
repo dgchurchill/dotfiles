@@ -704,8 +704,10 @@ fall back to other actions rather than splitting early."
 
 (use-package markdown-mode
   :mode ("README\\.md\\'" . gfm-mode)
-  :custom (markdown-command '("pandoc" "--from=markdown" "--to=html5"))
-  )
+  :custom (markdown-command '("pandoc" "--from=markdown" "--to=html5")))
+
+(use-package grip-mode)
+;; go install github.com/chrishrb/go-grip@latest
 
 
 ;;;; Typescript
