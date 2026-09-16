@@ -228,9 +228,22 @@
   (lambda (buffer-name action)
     (with-current-buffer buffer-name (apply #'derived-mode-p major-modes))))
 
+(defun dgc/split-window-sensibly (&optional window)
+  "Like the default split-window-sensibly, but strictly obey the split thresholds and don't split
+if the thresholds aren't met, even if there are no other windows. That way, display-buffer will
+fall back to other actions rather than splitting early."
+  (let ((window (or window (selected-window))))
+    (or (and (window-splittable-p window)
+	         ;; Split window vertically.
+	         (with-selected-window window (split-window-below)))
+	    (and (window-splittable-p window t)
+	         ;; Split window horizontally.
+	         (with-selected-window window (split-window-right))))))
+
 (setq
  switch-to-buffer-in-dedicated-window 'pop
  switch-to-buffer-obey-display-actions t
+ split-window-preferred-function #'dgc/split-window-sensibly
 
  ;; note: can't detect shell buffers by mode because the `shell` command pops to the buffer before changing mode
  display-buffer-alist
@@ -244,6 +257,9 @@
     (display-buffer-in-side-window)
     (side . bottom))
    (,(regexp-quote "*RE-Builder*")
+    (display-buffer-in-side-window)
+    (side . bottom))
+   (,(regexp-quote "*Flymake diagnostics for")
     (display-buffer-in-side-window)
     (side . bottom))
    (,(regexp-quote "*eldoc*")

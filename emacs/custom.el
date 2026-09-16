@@ -53,6 +53,7 @@
  '(scroll-conservatively 10000)
  '(scroll-margin 1)
  '(set-mark-command-repeat-pop t)
+ '(split-width-threshold 240)
  '(straight-vc-git-default-clone-depth 1)
  '(tab-always-indent 'complete)
  '(tab-width 4)
