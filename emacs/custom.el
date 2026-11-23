@@ -36,6 +36,7 @@
  '(inhibit-startup-screen t)
  '(isearch-lazy-count t)
  '(ispell-program-name "hunspell")
+ '(list-matching-lines-default-context-lines 2)
  '(major-mode-remap-alist '((csharp-mode . csharp-ts-mode)))
  '(make-backup-files nil)
  '(next-error-recenter '(4))

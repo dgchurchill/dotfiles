@@ -525,7 +525,8 @@ fall back to other actions rather than splitting early."
 
 (use-package ghostel
   :bind (:map ghostel-semi-char-mode-map
-              ("M-j" . consult-buffer))
+              ("M-j" . consult-buffer)
+              ("M-o" . other-window))
   :config
   (when (eq system-type 'windows-nt)
     (setq ghostel-shell "pwsh")))
@@ -556,6 +557,10 @@ fall back to other actions rather than splitting early."
 (use-package yasnippet-snippets
   :demand t
   :after (yasnippet))
+
+(use-package pdf-tools
+  :config
+  (pdf-tools-install))
 
 
 ;; M-x dape, "netcoredbg"
